@@ -1,0 +1,24 @@
+{
+    "countries": [
+        {
+            "id": 1,
+            "name": "Colombia"
+        },
+        {
+            "id": 2,
+            "name": "Bolivia"
+        },
+        {
+            "id": 3,
+            "name": "Venezuela"
+        },
+        {
+            "id": 4,
+            "name": "Ecuador"
+        },
+        {
+            "id": 5,
+            "name": "Chile"
+        }
+    ]
+}

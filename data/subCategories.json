@@ -1,0 +1,65 @@
+{
+    "subcategories": [
+        {
+            "id": 1,
+            "name": "Producto de aseo",
+            "categoryId": 1,
+            "subcategories":[
+                {
+                    "id": 10,
+                    "name": "aseo"
+                },
+                {
+                    "id": 11,
+                    "name": "jabon"
+                },
+                {
+                    "id": 12,
+                    "name": "escoba"
+                },
+                {
+                    "id": 13,
+                    "name": "trapero"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Producto electrónico",
+            "categoryId": 1,
+            "subcategories":[
+                {
+                    "id": 14,
+                    "name": "radio"
+                },
+                {
+                    "id": 15,
+                    "name": "tv"
+                },
+                {
+                    "id": 16,
+                    "name": "parlante"
+                },
+                {
+                    "id": 17,
+                    "name": "audifonos"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Producto medicinal",
+            "categoryId": 1
+        },
+        {
+            "id": 4,
+            "name": "Producto de entretenimiento",
+            "categoryId": 1
+        },
+        {
+            "id": 5,
+            "name": "Producto de enseñanza",
+            "categoryId": 1
+        }
+    ]
+}

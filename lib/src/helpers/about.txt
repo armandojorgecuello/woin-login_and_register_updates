@@ -1,0 +1,10 @@
+/**
+ * Woin 
+ * @link https://dev-woin@dev.azure.com/dev-woin/app.woin/_git/woin
+ * @since  0.1 rev
+ * @author Kenneth Raul Mendoza Lopez <kenne_8@outlook.es>
+ * @file lib/helpers
+ * @observations use abstractions for Entities
+ * @HU 0: Infraestructure
+ * @task Task: Infraestructura
+ */

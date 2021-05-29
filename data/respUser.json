@@ -1,0 +1,18 @@
+{
+  "message": "Ok",
+  "status": true,
+  "entities": [
+    {
+      "id": 2009,
+      "username": "zeros1",
+      "email": "wowzeros2@gmail.com",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIwMDkiLCJSb2xlIjoiMSIsIlVzZXJuYW1lIjoiemVyb3MxIiwiRW1haWwiOiJ3b3d6ZXJvczJAZ21haWwuY29tIiwiVHlwZVdvaW5lciI6Ijc1NzM2NTcyIiwiU3RhdGUiOiIxIiwibmJmIjoxNTg3MjU1MzY0LCJleHAiOjE1ODc4NjAxNjQsImlhdCI6MTU4NzI1NTM2NH0.i7KulJ0WM_VEuYAtmRRFkA8T982UyxaJRbNN4RpMWtI",
+      "state": 1,
+      "roleId": 1,
+      "createdAt": 1586844918000,
+      "updatedAt": 1586844918000,
+      "type": "75736572",
+      "woinType" : [{"typeName":"CliWoiner", "type":2},{"typeName":"EmWoiner", "type":3}]
+    }
+  ]
+}

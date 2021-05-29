@@ -1,0 +1,29 @@
+{
+    "cities": [
+        {
+            "id": 1,
+            "name": "Valledupar",
+            "governorateId": 1
+        },
+        {
+            "id": 2,
+            "name": "La Paz",
+            "governorateId": 1
+        },
+        {
+            "id": 3,
+            "name": "Santa Marta",
+            "governorateId": 2
+        },
+        {
+            "id": 4,
+            "name": "Mompox",
+            "governorateId": 3
+        },
+        {
+            "id": 5,
+            "name": "Cartagena",
+            "governorateId": 3
+        }
+    ]
+}

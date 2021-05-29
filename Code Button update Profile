@@ -1,0 +1,225 @@
+//VALIDACION DE CAMPOS
+                int validForm = 1;
+                person2 p;
+                if (userDetail.typeDefault == 0) {
+                  if (widget.identificacion == null) {
+                    validForm = 0;
+                    setState(() {
+                      valididentificacion = 0;
+                    });
+                  }
+                  if (widget.nameuser == null) {
+                    validForm = 0;
+                    setState(() {
+                      validname = 0;
+                    });
+                  }
+                  if (widget.ubicacion == null) {
+                    validForm = 0;
+                    setState(() {
+                      validresidencia = 0;
+                    });
+                  }
+                }
+                if (userDetail.typeDefault == 0) {
+                  Document doc = new Document(
+                      cityId: widget.identificacion.lugarExpedicion.getCity.id,
+                      number: widget.identificacion.numero,
+                      type: widget.identificacion.tipodocumento.id);
+                  p = new person2(
+                      primerApellido: widget.nameuser.primerApellido,
+                      segundoApellido: widget.nameuser.segundoApellido,
+                      primerNombre: widget.nameuser.primerNombre,
+                      segundoNombre: widget.nameuser.segundoNombre, // ,
+                      birthdate: widget.nameuser.fechaNacimiento,
+                      document: doc,
+                      gender: widget.nameuser.gender.id,
+                      direccion: widget.ubicacion.direccion,
+                      cityId: widget.ubicacion.lugarUbicacion.getCity.id);
+                } else {
+                  p = null;
+                }
+                List<Phones> phones;
+                if (widget.contacto != null) {
+                  phones = new List();
+                  if (widget.contacto.telContacto != "") {
+                    Phones phone = new Phones(
+                        number: widget.contacto.telContacto, typePhone: 1);
+                    phones.add(phone);
+                  }
+                  if (widget.contacto.whatsapp != "") {
+                    Phones phone = new Phones(
+                        number: widget.contacto.whatsapp, typePhone: 2);
+                    phones.add(phone);
+                  }
+                }
+                WoinerType type = new WoinerType(
+                    calification: 0,
+                    type: widget.typeWoiner + 1,
+                    typeName: widget.typeWoiner == 1 ? "Cliwoin" : "Emwoin",
+                    defaultType: 1); //TIENE PERSON
+                if (widget.typeWoiner == 1) {
+                  if (validForm == 1) {
+                    showDialogV2(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            CustomDialogLoading());
+                    geoLocation gl = new geoLocation();
+                    await gl.obtenerGeolocalizacion();
+                    cliWoiner cli = new cliWoiner(
+                        device: gl.getDevices,
+                        person: p,
+                        phones: phones,
+                        woinLocation: gl.getLocation,
+                        userId: 0,
+                        woinerType: type,
+                        isDefault: 1,
+                        image: widget.imagenUser,
+                        biography:
+                            widget.biography == null ? "" : widget.biography);
+                    final woinerReg = await userService.registroWoiner(cli);
+                    Navigator.of(context).pop();
+                    if (woinerReg.status) {
+                      showAlerts(context, "Cuenta creada correctamente.", true,
+                          irAprincipal, null, "Aceptar", "", null);
+                    } else {
+                      print("ERROR AL PROCESAR SOLICITUD");
+                    }
+                  } else {
+                    showAlerts(context, "Complete los campos seleccionados",
+                        false, closeModal, null, "Aceptar", "", null);
+                  }
+                } else {
+                  int validEm = 1;
+                  //VALIDAR EMWOIN
+                  if (widget.infoempresa == null) {
+                    setState(() {
+                      validinfoempresa = 0;
+                    });
+                    validEm = 0;
+                  }
+                  if (widget.contacto == null) {
+                    setState(() {
+                      validcontactoone = 0;
+                    });
+                    validEm = 0;
+                  }
+                  if (widget.contacto != null) {
+                    if (widget.contacto.validContactoEm() == 0) {
+                      setState(() {
+                        validcontactoone = 0;
+                      });
+                      validEm = 0;
+                    }
+                  }
+                  print("VALIDFORM=>" + validForm.toString());
+                  if (validEm == 1 && validForm == 1) {
+                    showDialogV2(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            CustomDialogLoading());
+                    geoLocation gl = new geoLocation();
+                    await gl.obtenerGeolocalizacion();
+                    Document docCompany = new Document(
+                        cityId: widget.infoempresa.lugarUbicacion.getCity.id,
+                        //dirección
+                        number: widget.infoempresa.nit,
+                        type: 6);
+                    List<SocialProfiles> lsp;
+                    if (widget.social != null) {
+                      if (widget.social.lsp.length > 0) {
+                        lsp = new List();
+                        SocialProfiles sp = new SocialProfiles(
+                          urlProfile: widget.social.obtenerRed(1).urlProfile,
+                          woinSocialNetworkId: 1,
+                        );
+                        lsp.add(sp);
+                        SocialProfiles sp1 = new SocialProfiles(
+                          urlProfile: widget.social.obtenerRed(2).urlProfile,
+                          woinSocialNetworkId: 1,
+                        );
+                        lsp.add(sp1);
+                        SocialProfiles sp2 = new SocialProfiles(
+                          urlProfile: widget.social.obtenerRed(3).urlProfile,
+                          woinSocialNetworkId: 1,
+                        );
+                        lsp.add(sp2);
+                        SocialProfiles sp3 = new SocialProfiles(
+                          urlProfile: widget.social.obtenerRed(4).urlProfile,
+                          woinSocialNetworkId: 1,
+                        );
+                        lsp.add(sp3);
+                      }
+                    }
+                    WoinLocationCompany wlc = new WoinLocationCompany(
+                      altitude: 0,
+                      createdAt: 0,
+                      id: 0,
+                      latitude: 0,
+                      longitude: 0,
+                      updatedAt: 0,
+                    );
+                    WoinLocationCompany wlc2 = new WoinLocationCompany(
+                      altitude: gl.getLocation.altitude.toInt(),
+                      createdAt: 0,
+                      id: 0,
+                      latitude: gl.getLocation.latitude.toInt(),
+                      longitude: gl.getLocation.longitude.toInt(),
+                      updatedAt: 0,
+                    );
+                    Device2 dv2 = new Device2(
+                        id: 0,
+                        ip: gl.getDevices.ip,
+                        mac: gl.getDevices.mac,
+                        name: gl.getDevices.name,
+                        state: gl.getDevices.state,
+                        createdAt: 0,
+                        updatedAt: 0,
+                        userId: 0);
+                    emWoiner em = new emWoiner(
+                        person: p,
+                        categoryId: widget.infoempresa.categoria.id,
+                        cityId: widget.infoempresa.lugarUbicacion.getCity.id,
+                        companyName: widget.infoempresa.nombre,
+                        dateCompanyCreate: widget.infoempresa.fechaCreacion,
+                        device: dv2,
+                        documentCompany: docCompany,
+                        email: widget.contacto.email,
+                        image: widget.imagenUser,
+                        isDefault: 1,
+                        direccionEmpresa: widget.infoempresa.direccion,
+                        phones: phones,
+                        socialProfiles: lsp,
+                        userId: 0,
+                        webPage: widget.social != null
+                            ? widget.social.paginaWeb != null
+                                ? widget.social.paginaWeb
+                                : null
+                            : null,
+                        woinLocation: wlc2,
+                        woinLocationCompany: wlc,
+                        woinerType: type,
+                        biography:
+                            widget.biography == null ? "" : widget.biography);
+                    final woinerReg = await userService.registroEmWoiner(em);
+                    Navigator.of(context).pop();
+                    if (woinerReg.status) {
+                      showAlerts(context, "Cuenta creada correctamente.", true,
+                          irAprincipal, null, "Aceptar", "", null);
+                    } else {
+                      print("ERROR AL PROCESAR SOLICITUD");
+                    }
+                    // Navigator.of(context).pop(imgFile);
+                  } else {
+                    //VALID FORM FALSE
+                    showAlerts(
+                        context,
+                        "Complete los campos seleccionados Emwoin",
+                        false,
+                        closeModal,
+                        null,
+                        "Aceptar",
+                        "",
+                        null);
+                  }
+                }

@@ -1,0 +1,105 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "name": "Productos",
+            "subcategories": [
+                {
+                    "id": 1,
+                    "name": "Producto de aseo",
+                    "categoryId": 1
+                },
+                {
+                    "id": 2,
+                    "name": "Producto electrónico",
+                    "categoryId": 1
+                },
+                {
+                    "id": 3,
+                    "name": "Producto medicinal",
+                    "categoryId": 1
+                },
+                {
+                    "id": 4,
+                    "name": "Producto de entretenimiento",
+                    "categoryId": 1
+                },
+                {
+                    "id": 5,
+                    "name": "Producto de enseñanza",
+                    "categoryId": 1
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Servicios",
+            "subcategories": [
+                {
+                    "id": 6,
+                    "name": "Servicio de salud",
+                    "categoryId": 2
+                },
+                {
+                    "id": 7,
+                    "name": "Servicio público",
+                    "categoryId": 2
+                },
+                {
+                    "id": 8,
+                    "name": "Servicio de seguridad",
+                    "categoryId": 2
+                },
+                {
+                    "id": 9,
+                    "name": "Servicio de domicilio",
+                    "categoryId": 2
+                },
+                {
+                    "id": 10,
+                    "name": "Servicio de mudanza",
+                    "categoryId": 2
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Inmuebles"
+        },
+        {
+            "id": 4,
+            "name": "Vehículos"
+        },
+        {
+            "id": 5,
+            "name": "Eventos",
+            "subcategories": [
+                {
+                    "id": 11,
+                    "name": "Evento de fiesta",
+                    "categoryId": 3
+                },
+                {
+                    "id": 12,
+                    "name": "Evento fúnebre",
+                    "categoryId": 3
+                },
+                {
+                    "id": 13,
+                    "name": "Evento educativo",
+                    "categoryId": 3
+                },
+                {
+                    "id": 14,
+                    "name": "Evento de entretenimiento",
+                    "categoryId": 3
+                },
+                {
+                    "id": 15,
+                    "name": "Evento de videojuegos",
+                    "categoryId": 3
+                }
+            ]
+        }
+    ]
+}

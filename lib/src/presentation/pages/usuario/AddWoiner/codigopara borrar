@@ -1,0 +1,278 @@
+Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              flex: 6,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: ResponsiveFlutter.of(context).wp(2),
+                    vertical: ResponsiveFlutter.of(context).hp(1.5)),
+                child: Card(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox(),
+                      ),
+                      Expanded(
+                          flex: 1,
+                          child: Text(
+                            "Seleccione una foto para mostrar",
+                            style: TextStyle(
+                                color: Colors.grey[500],
+                                fontSize: ResponsiveFlutter.of(context)
+                                    .fontSize(2.3)),
+                          )),
+                      Expanded(
+                        flex: 5,
+                        child: Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              // showBotomModal();
+                            },
+                            child: Container(
+                              //color: Colors.blue,
+                              width: MediaQuery.of(context).size.width * .45,
+                              height: MediaQuery.of(context).size.width * .45,
+                              child: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          .45,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              .45,
+                                      child: CircleAvatar(
+                                        backgroundImage:   NetworkImage(widget.img),
+                                        radius:
+                                            MediaQuery.of(context).size.width *
+                                                .20,
+                                        backgroundColor: Colors.grey[200],
+                                        foregroundColor: Colors.grey[600],
+                                        child: Padding(
+                                          padding: EdgeInsets.only(bottom: 5),
+                                          child: widget.img == null
+                                              ? Text(
+                                                  userdetalle()
+                                                      .getSession
+                                                      .username[0],
+                                                  style: TextStyle(
+                                                      fontSize: 40,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                )
+                                              : SizedBox(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SingleChildScrollView(
+                              scrollDirection: Axis.vertical,
+                              child: Column(
+                                children: <Widget>[
+                                  sesion.isTipoUser(2) == false
+                                      ? Container(
+                                          width: ResponsiveFlutter.of(context)
+                                              .wp(78.18),
+                                          child: GestureDetector(
+                                            onTap: () => {_openCamera(context)},
+                                            child: Card(
+                                                elevation: 1,
+                                                color: Color(0xff1ba6d2),
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 17,
+                                                      left: 17,
+                                                      top: 10,
+                                                      bottom: 10),
+                                                  child: Text(
+                                                    "Tomar Foto",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.018),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )),
+                                          ),
+                                        )
+                                      : SizedBox(),
+                                  sesion.isTipoUser(3) == false
+                                      ? Container(
+                                          width: ResponsiveFlutter.of(context)
+                                              .wp(78.18),
+                                          child: GestureDetector(
+                                            onTap: () => {
+                                              //sesion.isTipoUser(2) == true ? null : crearEmwoin()
+                                              _openGallery(context)
+                                            },
+                                            child: Card(
+                                                elevation: 2,
+                                                color: Colors.white,
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 17,
+                                                      left: 17,
+                                                      top: 10,
+                                                      bottom: 10),
+                                                  child: Text(
+                                                    "Galeria",
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xff1ba6d2),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.018),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                )),
+                                          ),
+                                        )
+                                      : SizedBox(),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.03,
+                            right: MediaQuery.of(context).size.width * 0.03),
+                        child: RaisedButton(
+                            elevation: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.close,
+                                  size: 20,
+                                  color: Color(0xff1ba6d2),
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.03,
+                                ),
+                                Text(
+                                  'Cancelar',
+                                  style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      color: Color(0xff1ba6d2),
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.019),
+                                ),
+                              ],
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            padding: EdgeInsets.only(
+                                left: 30, right: 30, top: 12, bottom: 12),
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            }
+
+                            //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
+
+                            ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width * 0.03,
+                            left: MediaQuery.of(context).size.width * 0.03),
+                        child: RaisedButton(
+                            elevation: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Siguiente',
+                                  style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.019),
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.03,
+                                ),
+                                Icon(
+                                  Icons.chevron_right,
+                                  size: 20,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            padding: EdgeInsets.only(
+                                left: 30, right: 30, top: 12, bottom: 12),
+                            color: Color(0xff1ba6d2),
+                            onPressed: () async {
+                              String imagen = "";
+
+                              if (imf != null) {
+                                List<int> imageBytes = imf.readAsBytesSync();
+                                imagen = base64Encode(imageBytes);
+                                // print("IMAGEN 1" + imagen);
+                              } else {
+                                imagen = widget.img;
+                              }
+
+                              Navigator.of(context).pop(imagen);
+                            }
+
+                            //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
+
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),

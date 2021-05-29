@@ -1,0 +1,10 @@
+pendientes:
+
+Colocar assets images en todo lugar donde vaya assets.
+
+
+
+
+Tareas concluidas
+
+* Splashscreen finalizado

@@ -1,0 +1,22 @@
+{
+    "governorates": [
+        {
+            "id": 1,
+            "name": "Cesar",
+            "countryId": 1,
+            "state": 1
+        },
+        {
+            "id": 2,
+            "name": "Magdalena",
+            "countryId": 1,
+            "state": 1
+        },
+        {
+            "id": 3,
+            "name": "Bolivar",
+            "countryId": 1,
+            "state": 1
+        }
+    ]
+}

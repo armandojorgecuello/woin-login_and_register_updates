@@ -1,0 +1,40 @@
+{
+	"ads": [
+		{
+			"title": "47d4b1dba5209732d7b",
+			"nameCompany": "Auteco",
+			"description": "d1dbe192bf01fc2c387f725e",
+			"price": 124119.0,
+			"giftPercentage": 87,
+			"discountPercentage": 26,
+			"initialStock": 291,
+			"currentStock": 2,
+			"state": 1,
+			"id": 476
+		},
+		{
+			"title": "223fbf9510f49c44a25",
+			"nameCompany": "Efecty",
+			"description": "436e675d9a653c3d977147e1",
+			"price": 139443.0,
+			"giftPercentage": 72,
+			"discountPercentage": 20,
+			"initialStock": 529,
+			"currentStock": 409,
+			"state": 1,
+			"id": 445
+		},
+		{
+			"title": "229e483feae6954e447",
+			"nameCompany": "Woin",
+			"description": "ad981461a696b10752319e95",
+			"price": 134485.0,
+			"giftPercentage": 64,
+			"discountPercentage": 29,
+			"initialStock": 545,
+			"currentStock": 365,
+			"state": 1,
+			"id": 485
+		}
+	]
+}
