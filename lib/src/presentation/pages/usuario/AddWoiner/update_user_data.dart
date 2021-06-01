@@ -22,7 +22,8 @@ import 'package:woin/src/presentation/pages/usuario/AddWoiner/residenciaWoiner.d
 import 'package:woin/src/presentation/pages/usuario/AddWoiner/webAndRedes.dart';
 import 'package:woin/src/providers/current_account_provider.dart';
 import 'package:woin/src/providers/login_provider.dart';
-import 'package:woin/src/providers/user_service.dart';
+
+import 'contactoWoiner.dart';
 
 class MainDatosWoiner extends StatefulWidget {
   int typeWoiner;
@@ -70,127 +71,114 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
     UserDetailResponse userDetail =  Provider.of<LoginProvider>(context).userDetail;
     Woiner woinerData = Provider.of<CurrentAccount>(context, listen:false).woiner;
     return Container(
+      height: 100.0.h,
       color: Colors.grey[300],
       child: Padding(
         padding: EdgeInsets.only(top: ResponsiveFlutter.of(context).scale(10)),
-        child: Column(
+        child: ListView(
+          padding: EdgeInsets.symmetric(
+            vertical: ResponsiveFlutter.of(context).hp(1.9),
+            horizontal: ResponsiveFlutter.of(context).wp(2.2)),
+          shrinkWrap: true,
           children: <Widget>[
-            Expanded(
-              flex: 12,
-              child: ListView(
-                padding: EdgeInsets.symmetric(
-                    vertical: ResponsiveFlutter.of(context).hp(1.9),
-                    horizontal: ResponsiveFlutter.of(context).wp(2.2)),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: false,
-                children: <Widget>[
-                  userDetail.typeDefault == 2
-                  ? _personalInfoCard(context, userDetail, woinerData)
-                  : _myBusinessCard(context),
-                  _contactAndOthersCard(context),
-                ],
-              ),
-            ),
-            Container(
-              width: 100.0.w,
-              height: 10.0.h,
-              child: _buttons(context),
-              color: Colors.white,
-            ),
+            userDetail.typeDefault == 2
+            ? _personalInfoCard(context, userDetail, woinerData)
+            : _myBusinessCard(context),
+            _contactAndOthersCard(context),
           ],
         ),
       ),
     );
   }
 
-  Padding _buttons(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 3.0.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          RaisedButton(
-              elevation: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.close,
-                    size: 20,
-                    color: Color(0xff1ba6d2),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.03,
-                  ),
-                  Text(
-                    'Cancelar',
-                    style: TextStyle(
-                        fontFamily: "Roboto",
-                        color: Color(0xff1ba6d2),
-                        fontSize: MediaQuery.of(context).size.height * 0.019),
-                  ),
-                ],
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)),
-              padding:
-                  EdgeInsets.only(left: 30, right: 30, top: 12, bottom: 12),
-              color: Colors.white,
-              onPressed: () {
-                Navigator.of(context).pop();
-              }
-              //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
-              ),
-          RaisedButton(
-              elevation: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Siguiente',
-                    style: TextStyle(
-                        fontFamily: "Roboto",
-                        color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.height * 0.019),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.03,
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    size: 20,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)),
-              padding:
-                  EdgeInsets.only(left: 30, right: 30, top: 12, bottom: 12),
-              color: Color(0xff1ba6d2),
-              onPressed: () async {
-                geoLocation gl = new geoLocation();
-                await gl.obtenerGeolocalizacion();
-                //cliWoiner cli = new cliWoiner(
-                //  device: gl.getDevices,
-                //  person: p,
-                //  phones: phones,
-                //  woinLocation: gl.getLocation,
-                //  userId: 0,
-                //  woinerType: type,
-                //  isDefault: 1,
-                //  image: widget.imagenUser,
-                //  biography: widget.biography == null
-                //    ? ""
-                //    : widget.biography
-                //);
-                //final woinerReg = await userService.registroWoiner(cli);
-              }//
-          ),
-        ],
-      ),
-    );
-  }
+  // Padding _buttons(BuildContext context) {
+  //   return Padding(
+  //     padding: EdgeInsets.symmetric(horizontal: 3.0.w),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: <Widget>[
+  //         RaisedButton(
+  //             elevation: 0,
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: <Widget>[
+  //                 Icon(
+  //                   Icons.close,
+  //                   size: 20,
+  //                   color: Color(0xff1ba6d2),
+  //                 ),
+  //                 SizedBox(
+  //                   width: MediaQuery.of(context).size.width * 0.03,
+  //                 ),
+  //                 Text(
+  //                   'Cancelar',
+  //                   style: TextStyle(
+  //                       fontFamily: "Roboto",
+  //                       color: Color(0xff1ba6d2),
+  //                       fontSize: MediaQuery.of(context).size.height * 0.019),
+  //                 ),
+  //               ],
+  //             ),
+  //             shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(30)),
+  //             padding:
+  //                 EdgeInsets.only(left: 30, right: 30, top: 12, bottom: 12),
+  //             color: Colors.white,
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             }
+  //             //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
+  //             ),
+  //         RaisedButton(
+  //             elevation: 0,
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: <Widget>[
+  //                 Text(
+  //                   'Siguiente',
+  //                   style: TextStyle(
+  //                       fontFamily: "Roboto",
+  //                       color: Colors.white,
+  //                       fontSize: MediaQuery.of(context).size.height * 0.019),
+  //                 ),
+  //                 SizedBox(
+  //                   width: MediaQuery.of(context).size.width * 0.03,
+  //                 ),
+  //                 Icon(
+  //                   Icons.chevron_right,
+  //                   size: 20,
+  //                   color: Colors.white,
+  //                 ),
+  //               ],
+  //             ),
+  //             shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(30)),
+  //             padding:
+  //                 EdgeInsets.only(left: 30, right: 30, top: 12, bottom: 12),
+  //             color: Color(0xff1ba6d2),
+  //             onPressed: () async {
+  //               geoLocation gl = new geoLocation();
+  //               await gl.obtenerGeolocalizacion();
+  //               //cliWoiner cli = new cliWoiner(
+  //               //  device: gl.getDevices,
+  //               //  person: p,
+  //               //  phones: phones,
+  //               //  woinLocation: gl.getLocation,
+  //               //  userId: 0,
+  //               //  woinerType: type,
+  //               //  isDefault: 1,
+  //               //  image: widget.imagenUser,
+  //               //  biography: widget.biography == null
+  //               //    ? ""
+  //               //    : widget.biography
+  //               //);
+  //               //final woinerReg = await userService.registroWoiner(cli);
+  //             }//
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Card _contactAndOthersCard(BuildContext context) {
     return Card(
@@ -317,6 +305,23 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
     return Hero(
       tag: "contacto",
       child: GestureDetector(
+        onTap:() {
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                  transitionDuration:
+                      Duration(milliseconds: 1200),
+                  pageBuilder: (_, __, ___) =>
+                      Contactoswoiner(
+                        contacto: widget.contacto,
+                        typeWoiner: widget.typeWoiner,
+                      ))).then((datos) {
+            setState(() {
+              widget.contacto = datos;
+              validcontactoone = 1;
+            });
+          });
+        },
         child: Material(
           color: validcontactoone == 1 ? Colors.white : Colors.blue[200],
           child: ListTile(
@@ -416,212 +421,118 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: ResponsiveFlutter.of(context).wp(5),
-                vertical: ResponsiveFlutter.of(context).hp(1.5)),
-            child: Text(
-              "Información personal",
-              style: TextStyle(
-                  color: Colors.blue[700], fontWeight: FontWeight.w600),
+              horizontal: 5.0.w,
+              vertical: 1.5.h
             ),
+            child: _cardTitle("Información personal"),
           ),
-          Divider(
-            color: Colors.grey[300],
-            height: 0,
-          ),
-          Hero(
-            tag: "Photo",
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    transitionDuration: Duration(milliseconds: 1200),
-                    pageBuilder: (_, __, ___) => WoinerPicture(
-                      img: "https://fondosmil.com/fondo/6609.jpg",
-                    )
+          _divider(),
+          _infoItem(
+            context, 
+            userDetail, 
+            Icon(FontAwesome.image),
+            (){
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 1200),
+                  pageBuilder: (_, __, ___) => WoinerPicture(
+                    img: "https://fondosmil.com/fondo/6609.jpg",
                   )
-                );
-              },
-              child: Material(
-                color: Colors.white,
-                child: ListTile(
-                  dense: true,
-                  leading: Icon(FontAwesome.image),
-                  title: Text("Imagen  mostrar al público"),
-                  subtitle: userDetail.typeDefault == 0 &&
-                      widget.editmode == 0 &&
-                      widget.imagenUser == null
-                      ? Text("Sin imagen para mostrar")
-                      : userDetail.typeDefault == 0 &&
-                              widget.editmode == 0 &&
-                              widget.imagenUser != null
-                          ? Text(
-                              "Imagen configurada",
-                            )
-                          : userDetail.typeDefault == 2 &&
-                                  userDetail.image != ""
-                              ? Text("Imagen configurada")
-                              : userDetail.typeDefault == 3 &&
-                                      userDetail.image != ""
-                                  ? Text(
-                                      "Imagen configurada",
-                                    )
-                                  : Text("Sin imagen para mostrar"),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.chevron_right),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                )
+              );
+            },
+            "Imagen  mostrar al público",
+            "Photo",
+            userDetail?.image != null ? userDetail?.image : "Sin imagen para mostrar"
           ),
-          Divider(
-            color: Colors.grey[300],
-            height: 0,
+          _divider(),
+          _infoItem(
+            context, 
+            userDetail, 
+            Icon(FontAwesome.user_o), 
+            () {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: Duration(milliseconds: 1200),
+                  pageBuilder: (_, __, ___) => DatosPersonaleswoiner()
+                )
+              );
+            }, 
+            "Datos del Usuario", 
+            "UserData", 
+            woinerData.publicName != null ? woinerData.publicName : "Sin Datos para mostrar"
           ),
-          Hero(
-            tag: "UserData",
-            child: GestureDetector(
-              onTap: () {Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    transitionDuration: Duration(milliseconds: 1200),
-                    pageBuilder: (_, __, ___) => DatosPersonaleswoiner()
-                  )
-                );
-              },
-              child: Material(
-                color: validname == 1 ? Colors.white : Colors.blue[200],
-                child: ListTile(
-                  dense: true,
-                  leading: Icon(FontAwesome.user_o),
-                  title: Text("Datos del Usuario"),
-                  subtitle: Text(
-                    widget.nameuser == null
-                        ? "Sin Datos"
-                        : widget.nameuser.primerNombre +
-                            " " +
-                            widget.nameuser.segundoNombre +
-                            " " +
-                            widget.nameuser.primerApellido,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.chevron_right),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+          _divider(),
+          _infoItem(
+            context, 
+            userDetail, 
+            Icon(FontAwesome.drivers_license_o), 
+            () {
+              Navigator.push(context,PageRouteBuilder(transitionDuration: Duration(milliseconds: 1200),pageBuilder: (_, __, ___) => Identificacionwoiner()));
+            }, 
+            "Identificación del usuario", 
+            "identificacion", 
+            userDetail.username
           ),
-          Divider(
-            color: Colors.grey[300],
-            height: 0,
+          _divider(),
+          _infoItem(
+            context,
+            userDetail, 
+            Icon(FontAwesome.map_marker), 
+            () {
+              Navigator.push(
+                context,
+                PageRouteBuilder(transitionDuration: Duration(milliseconds: 1200),pageBuilder: (_, __, ___) => ResidenciaWoiner(  ubicacion: widget.ubicacion,)));
+            }, 
+            "Lugar de Residencia", 
+            "residencia", 
+            "Cambiar lugar de residencia"
           ),
-          Hero(
-            tag: "identificacion",
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 1200),
-                        pageBuilder: (_, __, ___) => Identificacionwoiner(
-                              identificacion: widget.identificacion,
-                            ))).then((datos) {
-                  if (datos != null) {
-                    setState(() {
-                      widget.identificacion = datos;
-                      valididentificacion = 1;
-                    });
-                  }
-                });
-              },
-              child: Material(
-                color:
-                    valididentificacion == 1 ? Colors.white : Colors.blue[200],
-                child: ListTile(
-                  dense: true,
-                  leading: Icon(FontAwesome.drivers_license_o),
-                  title: Text("Identificación del usuario"),
-                  subtitle: widget.identificacion == null
-                      ? Text("Usuario no identificado")
-                      : Text(widget.identificacion.tipodocumento.type +
-                          ": " +
-                          widget.identificacion.numero),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.chevron_right),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Divider(
-            color: Colors.grey[300],
-            height: 0,
-          ),
-          Hero(
-            tag: "residencia",
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                        transitionDuration: Duration(milliseconds: 1200),
-                        pageBuilder: (_, __, ___) => ResidenciaWoiner(
-                              ubicacion: widget.ubicacion,
-                            ))).then((datos) {
-                  if (datos != null) {
-                    setState(() {
-                      widget.ubicacion = datos;
-                      validresidencia = 1;
-                    });
-                  }
-                });
-              },
-              child: Material(
-                color: validresidencia == 1 ? Colors.white : Colors.blue[200],
-                child: ListTile(
-                  dense: true,
-                  leading: Icon(FontAwesome.map_marker),
-                  title: Text("Lugar de Residencia"),
-                  subtitle: widget.ubicacion == null
-                      ? Text("No hay ubicación")
-                      : Text(widget.ubicacion.lugarUbicacion.getcountry.name +
-                          " - " +
-                          widget.ubicacion.lugarUbicacion.getCity.name),
-                  trailing: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.chevron_right),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Divider(
-            color: Colors.grey[300],
-            height: 0,
-          ),
+          _divider(),
         ],
       ),
     );
   }
 
-  Route _createRoute(Widget widget) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => widget,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return child;
-      },
+  Text _cardTitle(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        color: Colors.blue[700], fontWeight: FontWeight.w600,fontSize:11.0.sp
+      ),
+    );
+  }
+
+  Divider _divider() {
+    return Divider(
+      color: Colors.grey[300],
+      height: 0,
+    );
+  }
+
+  Hero _infoItem(BuildContext context, UserDetailResponse userDetail, Widget icon, Function onPressed, String title, String heroTag, String subtitle) {
+    return Hero(
+      tag: heroTag,
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Material(
+          color: Colors.white,
+          child: ListTile(
+            dense: true,
+            leading: icon,
+            title: Text(title, ),
+            subtitle:  Text(subtitle),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.chevron_right),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 

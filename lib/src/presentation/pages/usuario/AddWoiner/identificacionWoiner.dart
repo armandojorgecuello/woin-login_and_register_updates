@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import 'package:responsive_flutter/responsive_flutter.dart';
-import 'package:woin/src/entities/Countries/countryCity.dart';
+import 'package:woin/src/entities/Countries/Country.dart';
 
 import 'package:woin/src/entities/Persons/typeDocument.dart';
 import 'package:woin/src/entities/Persons/userViews.dart';
+import 'package:woin/src/models/user_detail.dart';
+import 'package:woin/src/presentation/pages/Personalizados_Widgets/country_popup.dart';
 
-import 'package:woin/src/presentation/pages/Personalizados_Widgets/typeDocument.dart';
-import 'package:woin/src/presentation/pages/Personalizados_Widgets/ubicacion.dart';
+import 'package:woin/src/providers/document_type_provider.dart';
+import 'package:woin/src/providers/login_provider.dart';
+import 'package:woin/src/widgets/type_document_selector.dart';
 
 class Identificacionwoiner extends StatefulWidget {
-  typeAndDocument identificacion;
-
-  Identificacionwoiner({this.identificacion});
+ 
   @override
   _IdentificaciowoinerState createState() => _IdentificaciowoinerState();
 }
 
 class _IdentificaciowoinerState extends State<Identificacionwoiner> {
-  typeDocument tipodocument;
-  countryCity lugarDocumento;
 
   int validformtipodoc = 0;
   int validformlugar = 0;
@@ -33,18 +34,12 @@ class _IdentificaciowoinerState extends State<Identificacionwoiner> {
   int errlugar = 0;
 
   // Navigator.of(context).pop();
+  //String documentType = "Tipo de documento";
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (widget.identificacion != null) {
-      numeroDocumento.text = widget.identificacion.numero;
-      tipodocument = widget.identificacion.tipodocumento;
-      lugarDocumento = widget.identificacion.lugarExpedicion;
-      //snombreController.text = widget.nameUser.segundoNombre;
-
-    }
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         setState(() {
@@ -61,471 +56,398 @@ class _IdentificaciowoinerState extends State<Identificacionwoiner> {
       tag: "identificacion",
       child: Scaffold(
         //resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          elevation: 0,
-          title: Text(
-            "Identificación Woiner",
-            style: TextStyle(color: Color(0xff1ba6d2)),
+        appBar: _appBar(context),
+        backgroundColor: Colors.grey[300],
+        body: _body(context),
+      ),
+    );
+  }
+
+  Column _body(BuildContext context) {
+    UserDetailResponse userData =Provider.of<LoginProvider>(context, listen: false).userDetail;
+    typeDocument tipodocument = Provider.of<DoumentTypeProvider>(context).typeDoc;
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(
+            top: 3.0,
+            bottom: 0.0
           ),
-          brightness: Brightness.light,
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.dashboard,
-                size: 30,
-                color: Colors.grey[400],
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.symmetric(
+              horizontal: 2.0.w,
+              vertical: 0.5.h
+            ),
+            children: <Widget>[
+              Form(
+                //key: _formKey,
+                child: Card(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 2.0.w, vertical: 0.0.h),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 2.0.h),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 2.0.w, vertical: 0.0.h),
+                          child: _documentType(context),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 2.0.w,vertical: 0.0.h),
+                          child:_expeditionPlace(context),
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal:6.0.w,
+                                vertical: 1.0.h
+                              ),
+                              child: Text(
+                                "Numero de Documento *",
+                                style: TextStyle(color: Colors.grey[700]),
+                              )
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  ResponsiveFlutter.of(context).wp(3),
+                              vertical:
+                                  ResponsiveFlutter.of(context).hp(0)),
+                          child:_textFormFieldDocumentNumber(context, userData)
+                        ),
+                        SizedBox(height: 2.0.h),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              alignment: Alignment.centerRight,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            ],
+          ),
+        ),
+        Expanded(child: Container()),
+        Container(
+          height: 8.0.h,
+          color: Colors.white,
+          child: _buttons(context, tipodocument),
+        ),
+      ],
+    );
+  }
+
+  Container _buttons(BuildContext context, typeDocument tipodocument) {
+    return Container(
+      height: 5.0.h,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          RaisedButton(
+            elevation: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.close,
+                  size: 20,
+                  color: Color(0xff1ba6d2),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.03,
+                ),
+                Text(
+                  'Cancelar',
+                  style: TextStyle(
+                      fontFamily: "Roboto",
+                      color: Color(0xff1ba6d2),
+                      fontSize: MediaQuery.of(context).size.height *
+                          0.019),
+                ),
+              ],
             ),
-          ],
-          leading: IconButton(
-            padding: EdgeInsets.all(0),
-            icon: Icon(
-              Icons.chevron_left,
-              size: 35,
-              color: Colors.grey[400],
-            ),
-            alignment: Alignment.centerLeft,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30)),
+            padding: EdgeInsets.only(
+                left: 30, right: 30, top: 12, bottom: 12),
+            color: Colors.white,
             onPressed: () {
               Navigator.of(context).pop();
-            },
+            }
           ),
+          RaisedButton(
+            elevation: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Siguiente',
+                  style: TextStyle(
+                      fontFamily: "Roboto",
+                      color: Colors.white,
+                      fontSize: MediaQuery.of(context).size.height *
+                          0.019),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.03,
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30)),
+            padding: EdgeInsets.only(
+                left: 30, right: 30, top: 12, bottom: 12),
+            color: Color(0xff1ba6d2),
+            onPressed: () {
+              if (tipodocument == null) {
+                setState(() {
+                  errtipo = 1;
+                  validformtipodoc++;
+                });
+              } else {
+                setState(() {
+                  errtipo = 0;
+                  if (validformtipodoc > 0) {
+                    validformtipodoc--;
+                  }
+                });
+              }
+              // if (lugarDocumento == null) {
+              //   setState(() {
+              //     errlugar = 1;
+              //     validformlugar++;
+              //   });
+              // } else {
+              //   setState(() {
+              //     errlugar = 0;
+              //     if (validformlugar > 0) {
+              //       validformlugar--;
+              //     }
+              //   });
+              // }
+              if (_formKey.currentState.validate() &&
+                  validformlugar == 0 &&
+                  validformtipodoc == 0) {
+                typeAndDocument document = new typeAndDocument(
+                  numero: numeroDocumento.text,
+                  tipodocumento: tipodocument
+                );
+                Navigator.of(context).pop(document);
+              } else {
+                print("Errores");
+              }
+              
+            }
+
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextFormField _textFormFieldDocumentNumber(BuildContext context, UserDetailResponse userData) {
+    return TextFormField(
+      maxLength: 15,
+      validator: (val) {
+        if (val.length < 7) {
+          return "Documento incorrecto (min= 7 digitos)";
+        } else {
+          return null;
+        }
+      },
+      focusNode: FocusNode(),
+      enableInteractiveSelection: false,
+      enabled: false,
+      controller: numeroDocumento,
+      style: TextStyle(
+          color: Color(0xfc979797),
+          fontSize: MediaQuery.of(context)
+                  .size
+                  .height *
+              0.018),
+      keyboardType: TextInputType.number,
+      autocorrect: true,
+      autofocus: false,
+      decoration: InputDecoration(
+        counterText: "",
+        isDense: true,
+        disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+                Radius.circular(50.0)),
+            borderSide: BorderSide(
+                color: Colors.grey[300])
+            // borderSide: new BorderSide(color: Colors.teal)
+            ),
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+                Radius.circular(50.0)),
+            borderSide: BorderSide(
+                color: Colors.red[600])
+            // borderSide: new BorderSide(color: Colors.teal)
+            ),
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+                Radius.circular(50.0)),
+            borderSide: BorderSide(
+                color: Colors.red[600])
+            // borderSide: new BorderSide(color: Colors.teal)
+            ),
+        errorStyle: TextStyle(
+          fontSize:
+              ResponsiveFlutter.of(context)
+                  .fontSize(1.5),
         ),
-        backgroundColor: Colors.grey[300],
-        body: Column(
+        contentPadding: EdgeInsets.all(10),
+        hintText: userData.username,
+        // fillColor: Colors.white,
+        labelStyle:
+            TextStyle(color: Color(0xfc979797)),
+        enabledBorder: new OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+                Radius.circular(50.0)),
+            borderSide: BorderSide(
+                color: Colors.grey[300])
+            // borderSide: new BorderSide(color: Colors.teal)
+            ),
+        focusedBorder: new OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+                Radius.circular(50.0)),
+            borderSide: BorderSide(
+                color: Colors.grey[500])
+            // borderSide: new BorderSide(color: Colors.teal)
+            ),
+        // labelText: 'Correo'
+      ),
+    );
+  }
+
+  RaisedButton _expeditionPlace(BuildContext context)  {
+    Country country = Provider.of<DoumentTypeProvider>(context).getCountry;
+    Cities city = Provider.of<DoumentTypeProvider>(context).getCity;
+    return RaisedButton(
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: 10, right: 10),
+        child: Row(
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Expanded(
-              flex: 10,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: ResponsiveFlutter.of(context).verticalScale(10),
-                    bottom: ResponsiveFlutter.of(context).verticalScale(10)),
-                child: ListView(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ResponsiveFlutter.of(context).wp(2),
-                      vertical: ResponsiveFlutter.of(context).hp(0)),
-                  children: <Widget>[
-                    Form(
-                      key: _formKey,
-                      child: Card(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              top: ResponsiveFlutter.of(context).hp(2),
-                              bottom: ResponsiveFlutter.of(context).hp(3)),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: ResponsiveFlutter.of(context)
-                                              .wp(3),
-                                          right: ResponsiveFlutter.of(context)
-                                              .wp(3),
-                                          top: ResponsiveFlutter.of(context)
-                                              .hp(.8)),
-                                      child: SizedBox(
-                                        //height:ResponsiveFlutter.of(context).hp(5),
-                                        child: RaisedButton(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Text(
-                                                  tipodocument == null
-                                                      ? "Tipo de documento"
-                                                      : tipodocument.name,
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.018,
-                                                      color: Color(0xfc979797),
-                                                      fontFamily: "Roboto",
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                                Icon(
-                                                  Icons.keyboard_arrow_down,
-                                                  color: Color(0xff757575),
-                                                  size: 18,
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              side: BorderSide(
-                                                  color: errtipo == 0
-                                                      ? Color(0xffd3d7db)
-                                                      : Colors.red[600])),
-                                          padding: EdgeInsets.all(4),
-                                          color: Colors.white,
-                                          elevation: 0,
-                                          onPressed: () async {
-                                            final rt =
-                                                await showDialogTypeDocument(
-                                                    context, tipodocument);
-                                            if (rt != null) {
-                                              setState(() {
-                                                tipodocument = rt;
-                                              });
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: ResponsiveFlutter.of(context)
-                                              .wp(3),
-                                          right: ResponsiveFlutter.of(context)
-                                              .wp(3),
-                                          top: ResponsiveFlutter.of(context)
-                                              .hp(.8)),
-                                      child: SizedBox(
-                                        //height:ResponsiveFlutter.of(context).hp(5),
-                                        child: RaisedButton(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Text(
-                                                  lugarDocumento == null
-                                                      ? "Lugar de expedición del documento"
-                                                      : lugarDocumento
-                                                              .getcountry.name +
-                                                          " - " +
-                                                          lugarDocumento
-                                                              .getCity.name,
-                                                  style: TextStyle(
-                                                      fontSize:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.018,
-                                                      color: Color(0xfc979797),
-                                                      fontFamily: "Roboto",
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                                Icon(
-                                                  Icons.keyboard_arrow_down,
-                                                  color: Color(0xff757575),
-                                                  size: 18,
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              side: BorderSide(
-                                                  color: errlugar == 0
-                                                      ? Color(0xffd3d7db)
-                                                      : Colors.red[600])),
-                                          padding: EdgeInsets.all(4),
-                                          color: Colors.white,
-                                          elevation: 0,
-                                          onPressed: () async {
-                                            var respuesta =
-                                                await showDialogUbicacion(
-                                                    context, lugarDocumento);
-
-                                            if (respuesta != null) {
-                                              setState(() {
-                                                lugarDocumento = respuesta;
-                                              });
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ResponsiveFlutter.of(context)
-                                                  .wp(6),
-                                          vertical:
-                                              ResponsiveFlutter.of(context)
-                                                  .hp(1.5)),
-                                      child: Text(
-                                        "Numero de Documento *",
-                                        style:
-                                            TextStyle(color: Colors.grey[700]),
-                                      ))
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              ResponsiveFlutter.of(context)
-                                                  .wp(3),
-                                          vertical:
-                                              ResponsiveFlutter.of(context)
-                                                  .hp(0)),
-                                      child: SizedBox(
-                                        // height: ResponsiveFlutter.of(context).hp(5),
-                                        child: TextFormField(
-                                          maxLength: 15,
-                                          validator: (val) {
-                                            if (val.length < 7) {
-                                              return "Documento incorrecto (min= 7 digitos)";
-                                            } else {
-                                              return null;
-                                            }
-                                          },
-                                          controller: numeroDocumento,
-                                          style: TextStyle(
-                                              color: Color(0xfc979797),
-                                              fontSize: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.018),
-                                          keyboardType: TextInputType.number,
-                                          autocorrect: true,
-                                          autofocus: false,
-                                          decoration: InputDecoration(
-                                            counterText: "",
-                                            isDense: true,
-                                            focusedErrorBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(50.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.red[600])
-                                                // borderSide: new BorderSide(color: Colors.teal)
-                                                ),
-                                            errorBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(50.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.red[600])
-                                                // borderSide: new BorderSide(color: Colors.teal)
-                                                ),
-                                            errorStyle: TextStyle(
-                                              fontSize:
-                                                  ResponsiveFlutter.of(context)
-                                                      .fontSize(1.5),
-                                            ),
-                                            contentPadding: EdgeInsets.all(10),
-
-                                            hintText: "Documento del usuario",
-
-                                            // fillColor: Colors.white,
-                                            labelStyle: TextStyle(
-                                                color: Color(0xfc979797)),
-                                            enabledBorder: new OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(50.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[300])
-                                                // borderSide: new BorderSide(color: Colors.teal)
-                                                ),
-                                            focusedBorder: new OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(50.0)),
-                                                borderSide: BorderSide(
-                                                    color: Colors.grey[500])
-                                                // borderSide: new BorderSide(color: Colors.teal)
-                                                ),
-
-                                            // labelText: 'Correo'
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+            Text(
+              country?.name != null ? "${country?.name} " +  "${city?.name}" : "Lugar de expedición del documento",
+              style: TextStyle(
+                fontSize:11.0.sp,
+                color: Color(0xfc979797),
+                fontFamily: "Roboto",
+                fontWeight: FontWeight.w400
               ),
             ),
-            visibletec == 0
-                ? Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  )
-                : SizedBox(),
-            Expanded(
-              flex: visibletec == 0 ? 2 : 3,
-              child: Container(
-                color: Colors.white,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.03,
-                            right: MediaQuery.of(context).size.width * 0.03),
-                        child: RaisedButton(
-                            elevation: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.close,
-                                  size: 20,
-                                  color: Color(0xff1ba6d2),
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.03,
-                                ),
-                                Text(
-                                  'Cancelar',
-                                  style: TextStyle(
-                                      fontFamily: "Roboto",
-                                      color: Color(0xff1ba6d2),
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.019),
-                                ),
-                              ],
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            padding: EdgeInsets.only(
-                                left: 30, right: 30, top: 12, bottom: 12),
-                            color: Colors.white,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            }
-
-                            //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
-
-                            ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width * 0.03,
-                            left: MediaQuery.of(context).size.width * 0.03),
-                        child: RaisedButton(
-                            elevation: 0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  'Siguiente',
-                                  style: TextStyle(
-                                      fontFamily: "Roboto",
-                                      color: Colors.white,
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.019),
-                                ),
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.03,
-                                ),
-                                Icon(
-                                  Icons.chevron_right,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            padding: EdgeInsets.only(
-                                left: 30, right: 30, top: 12, bottom: 12),
-                            color: Color(0xff1ba6d2),
-                            onPressed: () {
-                              if (tipodocument == null) {
-                                setState(() {
-                                  errtipo = 1;
-                                  validformtipodoc++;
-                                });
-                              } else {
-                                setState(() {
-                                  errtipo = 0;
-                                  if (validformtipodoc > 0) {
-                                    validformtipodoc--;
-                                  }
-                                });
-                              }
-                              if (lugarDocumento == null) {
-                                setState(() {
-                                  errlugar = 1;
-                                  validformlugar++;
-                                });
-                              } else {
-                                setState(() {
-                                  errlugar = 0;
-                                  if (validformlugar > 0) {
-                                    validformlugar--;
-                                  }
-                                });
-                              }
-                              if (_formKey.currentState.validate() &&
-                                  validformlugar == 0 &&
-                                  validformtipodoc == 0) {
-                                typeAndDocument document = new typeAndDocument(
-                                    lugarExpedicion: lugarDocumento,
-                                    numero: numeroDocumento.text,
-                                    tipodocumento: tipodocument);
-
-                                Navigator.of(context).pop(document);
-                                // print("TODO BIEN");
-
-                                // Navigator.of(context).pop(nameuser);
-                              } else {
-                                print("Errores");
-                              }
-                              // Navigator.of(context).pop(imgFile);
-                            }
-
-                            //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
-
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            Icon(
+              Icons.keyboard_arrow_down,
+              color: Color(0xff757575),
+              size: 18,
+            )
           ],
         ),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius:BorderRadius.circular(30),
+        side: BorderSide(
+          color: errlugar == 0
+          ? Color(0xffd3d7db)
+          : Colors.red[600]
+        )
+      ),
+      padding: EdgeInsets.all(4),
+      color: Colors.white,
+      elevation: 0,
+      onPressed: () async {
+        showDialogUbicacion(context, );
+      },
+    );
+  }
+
+  RaisedButton _documentType(BuildContext context) {
+    typeDocument tipodocument = Provider.of<DoumentTypeProvider>(context).typeDoc;
+    return RaisedButton(
+      child: Padding(
+        padding: EdgeInsets.only(left: 10, right: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              tipodocument == null ? "Tipo de documento" : tipodocument.name,
+              style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.height * 0.018,
+                  color: Color(0xfc979797),
+                  fontFamily: "Roboto",
+                  fontWeight: FontWeight.w400),
+            ),
+            Icon(
+              Icons.keyboard_arrow_down,
+              color: Color(0xff757575),
+              size: 18,
+            )
+          ],
+        ),
+      ),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+          side: BorderSide(
+              color: errtipo == 0 ? Color(0xffd3d7db) : Colors.red[600])),
+      padding: EdgeInsets.all(4),
+      color: Colors.white,
+      elevation: 0,
+      onPressed: () async {
+        final rt = await showDialogTypeDocument(context, tipodocument);
+        if (rt != null) {
+          setState(() {
+            tipodocument = rt;
+          });
+        }
+      },
+    );
+  }
+
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      title: Text(
+        "Identificación Woiner",
+        style: TextStyle(color: Color(0xff1ba6d2)),
+      ),
+      brightness: Brightness.light,
+      backgroundColor: Colors.white,
+      centerTitle: true,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.dashboard,
+            size: 30,
+            color: Colors.grey[400],
+          ),
+          alignment: Alignment.centerRight,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+      leading: IconButton(
+        padding: EdgeInsets.all(0),
+        icon: Icon(
+          Icons.chevron_left,
+          size: 35,
+          color: Colors.grey[400],
+        ),
+        alignment: Alignment.centerLeft,
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
       ),
     );
   }

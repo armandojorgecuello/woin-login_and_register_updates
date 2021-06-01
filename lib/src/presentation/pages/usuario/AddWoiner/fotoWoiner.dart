@@ -62,39 +62,41 @@ class _WoinerPictureState extends State<WoinerPicture> {
     );
   }
 
-  Column _body(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(
-          horizontal: ResponsiveFlutter.of(context).wp(2),
-          vertical: ResponsiveFlutter.of(context).hp(1.5)),
-          child: Container(
-            height: 85.0.h,
-            child: Card(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height:2.0.h ),
-                  Text(
-                    "Seleccione una foto para mostrar",
-                    style: TextStyle(
-                      color: Colors.grey[500],
-                      fontSize:14.0.sp
+  SingleChildScrollView _body(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(
+            horizontal: ResponsiveFlutter.of(context).wp(2),
+            vertical: ResponsiveFlutter.of(context).hp(1.5)),
+            child: Container(
+              height: 85.0.h,
+              child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height:2.0.h ),
+                    Text(
+                      "Seleccione una foto para mostrar",
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontSize:14.0.sp
+                      ),
                     ),
-                  ),
-                  SizedBox(height:3.0.h ),
-                  _avatarCircle(),
-                  Expanded(child:Container())
-                ],
+                    SizedBox(height:3.0.h ),
+                    _avatarCircle(),
+                    Expanded(child:Container())
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

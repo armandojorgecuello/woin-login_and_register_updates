@@ -1,0 +1,121 @@
+GridView.builder(
+                gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount:
+                      widget._crossAxisCount,
+                  childAspectRatio:
+                      widget.aspectratio,
+                ),
+                scrollDirection: Axis.vertical,
+                itemCount: snapshot.data.length,
+                itemBuilder:
+                    (BuildContext context,
+                        int index) {
+                  return Container(
+                    child: Row(
+                      mainAxisAlignment:
+                          MainAxisAlignment
+                              .center,
+                      children: <Widget>[
+                        Container(
+                            //color: Colors.lightGreen,
+                            height:
+                                widget.heightc *
+                                    0.25,
+                            padding:
+                                EdgeInsets.all(
+                                    0),
+                            width: MediaQuery.of(
+                                        context)
+                                    .size
+                                    .width *
+                                .43,
+                            child:
+                                GestureDetector(
+                              onTap: () {
+                                // setState(() {
+                                //   hb = 0;
+                                //   if (respcity == null) {
+                                //     respcity = new countryCity();
+                                //     respcity.setCity = null;
+                                //     respcity.setCountry = snapsho      
+                                //     countryService.obtenerCiudadPais(snapshot.data[index].id).then((r) {
+                                //       if (r == 1) {
+                                //         setState(() {
+                                //           hb = 1;
+                                //         });
+                                //       }
+                                //     });
+                                //   } else {
+                                //     respcity.setCountry = snapsho      
+                                //     respcity.s     
+                                //     countryService.obtenerCiudadPais(snapshot.data[index].id).then((r) {
+                                //       if (r == 1) {
+                                //         setState(() {
+                                //           hb = 1;
+                                //         });
+                                //       }
+                                //     });
+                                //   }
+                                // });
+                              },
+                              child: Card(
+                                child: Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 0,
+                                        right:
+                                            0,
+                                        top: 0,
+                                        bottom:
+                                            0),
+                                    child:
+                                        Container(
+                                      //color: Colors.indigo,
+                                      padding:
+                                          EdgeInsets.all(
+                                              4),
+                                      child:
+                                          Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisSize:
+                                            MainAxisSize.max,
+                                        children: <
+                                            Widget>[
+                                          Expanded(
+                                              flex: 3,
+                                              child: CircleAvatar(
+                                                backgroundImage: NetworkImage(snapshot.data[index].flag),
+                                              )),
+                                          Expanded(
+                                            flex:
+                                                7,
+                                            child:
+                                                Padding(
+                                              padding: EdgeInsets.only(left: snapshot.data[index].name.length > 8 ? 6 : 0),
+                                              child: Text(
+                                                snapshot.data[index].name,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(color: Color(0xffb7b7b7), fontWeight: FontWeight.w400, fontFamily: "TrebuchetMS", fontSize: snapshot.data[index].name.length > 9 ? widget.heightc * 0.021 : widget.heightc * 0.025),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius
+                                            .circular(
+                                                5),
+                                    side: BorderSide
+                                        .none),
+                              ),
+                            ))
+                      ],
+                    ),
+                  );
+                },
+              )

@@ -9,7 +9,8 @@ import 'package:woin/src/entities/Categories/Category.dart';
 import 'package:woin/src/entities/Countries/countryCity.dart';
 import 'package:woin/src/entities/Persons/userViews.dart';
 import 'package:woin/src/presentation/pages/Personalizados_Widgets/category.dart';
-import 'package:woin/src/presentation/pages/Personalizados_Widgets/ubicacion.dart';
+import 'package:woin/src/presentation/pages/Personalizados_Widgets/country_popup.dart';
+
 
 class Empresaswoiner extends StatefulWidget {
   infoEmpresa dataEmpresa;
@@ -604,7 +605,7 @@ class _EmpresaswoinerswoinerState extends State<Empresaswoiner> {
       onPressed: () async {
         var respuesta =
             await showDialogUbicacion(
-                context, ubicacionEmpresa);
+                context);
         if (respuesta != null) {
           setState(() {
             ubicacionEmpresa = respuesta;

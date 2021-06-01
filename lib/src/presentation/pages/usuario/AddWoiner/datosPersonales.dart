@@ -22,11 +22,18 @@ class _DatosPersonaleswoinerState extends State<DatosPersonaleswoiner> {
   int validformfec = 0;
   int visibletec = 0;
   var myFormat = new DateFormat('yyyy-MM-dd');
-  final _formKey = GlobalKey<FormState>();
+
   TextEditingController papellidoController = new TextEditingController();
   TextEditingController sapellidoController = new TextEditingController();
   TextEditingController pnombreController = new TextEditingController();
   TextEditingController snombreController = new TextEditingController();
+
+  final GlobalKey<FormFieldState> _primerapellidoController = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _segundoapellidoController = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _primernombreController = GlobalKey<FormFieldState>();
+  final GlobalKey<FormFieldState> _segundonombreController = GlobalKey<FormFieldState>();
+
+
   int errfecha = 0;
   int errgenero = 0;
 
@@ -47,6 +54,8 @@ class _DatosPersonaleswoinerState extends State<DatosPersonaleswoiner> {
   }
 
   @override
+
+  
   Widget build(BuildContext context) {
     return Hero(
       tag: "UserData",
@@ -221,7 +230,6 @@ class _DatosPersonaleswoinerState extends State<DatosPersonaleswoiner> {
       child: Container(
         height: 63.0.h,
         child: Form(
-          key: _formKey,
           child: Card(
             child: Padding(
               padding: EdgeInsets.only(
@@ -390,8 +398,11 @@ class _DatosPersonaleswoinerState extends State<DatosPersonaleswoiner> {
         vertical: 0
       ),
       child: SizedBox(
-        // height: ResponsiveFlutter.of(context).hp(5),
         child: TextFormField(
+          key: _segundonombreController,
+          onChanged: (value){
+            _segundonombreController.currentState.validate();
+          },
           maxLength: 15,
           validator: (val) {
             if (val.length > 0 &&
@@ -466,70 +477,71 @@ class _DatosPersonaleswoinerState extends State<DatosPersonaleswoiner> {
         horizontal:3.0.w,
         vertical:0
       ),
-      child: SizedBox(
-        // height: ResponsiveFlutter.of(context)                                         .hp(5),
-        child: TextFormField(
-          maxLength: 15,
-          validator: (val) {
-            if (val.length < 3) {
-              return "Nombre incorrecto (min= 3 letras)";
-            } else {
-              return null;
-            }
-          },
-          controller: pnombreController,
-          style: TextStyle(
-              color: Color(0xfc979797),
-              fontSize: MediaQuery.of(context)
-                      .size
-                      .height *
-                  0.018),
-          keyboardType: TextInputType.text,
-          autocorrect: true,
-          autofocus: false,
-          decoration: InputDecoration(
-            counterText: "",
-            isDense: true,
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(50.0)),
-                borderSide: BorderSide(
-                    color: Colors.red[600])
-                // borderSide: new BorderSide(color: Colors.teal)
-                ),
-            errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(50.0)),
-                borderSide: BorderSide(
-                    color: Colors.red[600])
-                // borderSide: new BorderSide(color: Colors.teal)
-                ),
-            errorStyle: TextStyle(
-              fontSize:
-                  ResponsiveFlutter.of(context)
-                      .fontSize(1.5),
-            ),
-            contentPadding: EdgeInsets.all(10),
-            hintText: "primer nombre del usuario",
-            // fillColor: Colors.white,
-            labelStyle: TextStyle(
-                color: Color(0xfc979797)),
-            enabledBorder: new OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(50.0)),
-                borderSide: BorderSide(
-                    color: Colors.grey[300])
-                // borderSide: new BorderSide(color: Colors.teal)
-                ),
-            focusedBorder: new OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(50.0)),
-                borderSide: BorderSide(
-                    color: Colors.grey[500])
-                // borderSide: new BorderSide(color: Colors.teal)
-                ),
-            // labelText: 'Correo'
+      child: TextFormField(
+        key :_primernombreController,
+        onChanged: (value){
+          _primernombreController.currentState.validate();
+        },
+        maxLength: 15,
+        validator: (val) {
+          if (val.length < 3) {
+            return "Nombre incorrecto (min= 3 letras)";
+          } else {
+            return null;
+          }
+        },
+        controller: pnombreController,
+        style: TextStyle(
+            color: Color(0xfc979797),
+            fontSize: MediaQuery.of(context)
+                    .size
+                    .height *
+                0.018),
+        keyboardType: TextInputType.text,
+        autocorrect: true,
+        autofocus: false,
+        decoration: InputDecoration(
+          counterText: "",
+          isDense: true,
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(50.0)),
+              borderSide: BorderSide(
+                  color: Colors.red[600])
+              // borderSide: new BorderSide(color: Colors.teal)
+              ),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(50.0)),
+              borderSide: BorderSide(
+                  color: Colors.red[600])
+              // borderSide: new BorderSide(color: Colors.teal)
+              ),
+          errorStyle: TextStyle(
+            fontSize:
+                ResponsiveFlutter.of(context)
+                    .fontSize(1.5),
           ),
+          contentPadding: EdgeInsets.all(10),
+          hintText: "primer nombre del usuario",
+          // fillColor: Colors.white,
+          labelStyle: TextStyle(
+              color: Color(0xfc979797)),
+          enabledBorder: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(50.0)),
+              borderSide: BorderSide(
+                  color: Colors.grey[300])
+              // borderSide: new BorderSide(color: Colors.teal)
+              ),
+          focusedBorder: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(50.0)),
+              borderSide: BorderSide(
+                  color: Colors.grey[500])
+              // borderSide: new BorderSide(color: Colors.teal)
+              ),
+          // labelText: 'Correo'
         ),
       ),
     );
@@ -541,71 +553,72 @@ class _DatosPersonaleswoinerState extends State<DatosPersonaleswoiner> {
         horizontal:3.0.w,
         vertical: 0
       ),
-      child: SizedBox(
-        // height: ResponsiveFlutter.of(context)                            .hp(5),
-        child: TextFormField(
-          maxLength: 15,
-          validator: (val) {
-            if (val.length < 3) {
-              return "Apellido incorrecto (min= 3 letras)";
-            } else {
-              return null;
-            }
-          },
-          controller: sapellidoController,
-          style: TextStyle(
-              color: Color(0xfc979797),
-              fontSize: MediaQuery.of(context)
-                      .size
-                      .height *
-                  0.018),
-          keyboardType: TextInputType.text,
-          autocorrect: true,
-          autofocus: false,
-          decoration: InputDecoration(
-            counterText: "",
-            isDense: true,
-            focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(50.0)),
-                borderSide: BorderSide(
-                    color: Colors.red[600])
-                // borderSide: new BorderSide(color: Colors.teal)
-                ),
-            errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(50.0)),
-                borderSide: BorderSide(
-                    color: Colors.red[600])
-                // borderSide: new BorderSide(color: Colors.teal)
-                ),
-            errorStyle: TextStyle(
-              fontSize:
-                  ResponsiveFlutter.of(context)
-                      .fontSize(1.5),
-            ),
-            contentPadding: EdgeInsets.all(10),
-            hintText:
-                "Segundo apellido del usuario",
-            // fillColor: Colors.white,
-            labelStyle: TextStyle(
-                color: Color(0xfc979797)),
-            enabledBorder: new OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(50.0)),
-                borderSide: BorderSide(
-                    color: Colors.grey[300])
-                // borderSide: new BorderSide(color: Colors.teal)
-                ),
-            focusedBorder: new OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                    Radius.circular(50.0)),
-                borderSide: BorderSide(
-                    color: Colors.grey[500])
-                // borderSide: new BorderSide(color: Colors.teal)
-                ),
-            // labelText: 'Correo'
+      child: TextFormField(
+        key: _segundoapellidoController,
+        onChanged: (value){
+          _segundoapellidoController.currentState.validate();
+        },
+        maxLength: 15,
+        validator: (val) {
+          if (val.length < 3) {
+            return "Apellido incorrecto (min= 3 letras)";
+          } else {
+            return null;
+          }
+        },
+        controller: sapellidoController,
+        style: TextStyle(
+            color: Color(0xfc979797),
+            fontSize: MediaQuery.of(context)
+                    .size
+                    .height *
+                0.018),
+        keyboardType: TextInputType.text,
+        autocorrect: true,
+        autofocus: false,
+        decoration: InputDecoration(
+          counterText: "",
+          isDense: true,
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(50.0)),
+              borderSide: BorderSide(
+                  color: Colors.red[600])
+              // borderSide: new BorderSide(color: Colors.teal)
+              ),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(50.0)),
+              borderSide: BorderSide(
+                  color: Colors.red[600])
+              // borderSide: new BorderSide(color: Colors.teal)
+              ),
+          errorStyle: TextStyle(
+            fontSize:
+                ResponsiveFlutter.of(context)
+                    .fontSize(1.5),
           ),
+          contentPadding: EdgeInsets.all(10),
+          hintText:
+              "Segundo apellido del usuario",
+          // fillColor: Colors.white,
+          labelStyle: TextStyle(
+              color: Color(0xfc979797)),
+          enabledBorder: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(50.0)),
+              borderSide: BorderSide(
+                  color: Colors.grey[300])
+              // borderSide: new BorderSide(color: Colors.teal)
+              ),
+          focusedBorder: new OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                  Radius.circular(50.0)),
+              borderSide: BorderSide(
+                  color: Colors.grey[500])
+              // borderSide: new BorderSide(color: Colors.teal)
+              ),
+          // labelText: 'Correo'
         ),
       ),
     );
@@ -628,6 +641,10 @@ class _DatosPersonaleswoinerState extends State<DatosPersonaleswoiner> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal:3.0.w,vertical: 0),
       child: TextFormField(
+        key: _primerapellidoController,
+        onChanged: (value){
+          _primerapellidoController.currentState.validate();
+        },
         maxLength: 15,
         validator: (val) {
           if (val.length < 3) {
@@ -712,4 +729,5 @@ class _DatosPersonaleswoinerState extends State<DatosPersonaleswoiner> {
       ),
     );
   }
+
 }

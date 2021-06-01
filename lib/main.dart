@@ -10,6 +10,7 @@ import 'package:woin/src/services/serviceSplash/ServiceSplash.dart';
 
 import 'src/presentation/pages/tab-principal/home_page.dart';
 import 'src/providers/current_account_provider.dart';
+import 'src/providers/document_type_provider.dart';
 import 'src/providers/login_provider.dart';
 import 'src/services/serviceSplash/ServiceSplash.dart';
 
@@ -40,6 +41,9 @@ class _MyAppState extends State<MyApp> {
             ),
             ChangeNotifierProvider<CurrentAccount>(
               create: (context) => CurrentAccount()
+            ),
+            ChangeNotifierProvider<DoumentTypeProvider>(
+              create: (context) => DoumentTypeProvider()
             ),
           ],
           child: MaterialApp(

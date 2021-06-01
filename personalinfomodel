@@ -1,0 +1,46 @@
+// To parse this JSON data, do
+//
+//     final personalInformation = personalInformationFromJson(jsonString);
+
+import 'dart:convert';
+
+PersonalInformation personalInformationFromJson(String str) => PersonalInformation.fromJson(json.decode(str));
+
+String personalInformationToJson(PersonalInformation data) => json.encode(data.toJson());
+
+class PersonalInformation {
+    PersonalInformation({
+        this.firstName,
+        this.secondName,
+        this.surname,
+        this.secondSurname,
+        this.dateBirth,
+        this.gender,
+    });
+
+    String firstName;
+    String secondName;
+    String surname;
+    String secondSurname;
+    String dateBirth;
+    int gender;
+
+    factory PersonalInformation.fromJson(Map<String, dynamic> json) => PersonalInformation(
+        firstName: json["firstName"],
+        secondName: json["secondName"],
+        surname: json["surname"],
+        secondSurname: json["secondSurname"],
+        dateBirth: json["dateBirth"],
+        gender: json["gender"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "firstName": firstName,
+        "secondName": secondName,
+        "surname": surname,
+        "secondSurname": secondSurname,
+        "dateBirth": dateBirth,
+        "gender": gender,
+    };
+}
+

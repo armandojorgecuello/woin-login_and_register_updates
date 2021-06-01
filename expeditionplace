@@ -1,0 +1,381 @@
+Column(
+          children: <Widget>[
+            Expanded(
+              flex: 12,
+              //height: heightc * .845,
+              child: PageView(
+                //physics: NeverScrollableScrollPhysics(),
+                controller: widget.ctrl,
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        
+                        ),
+                        Expanded(
+                          flex: widget.buscador == 0 ? 2 : 3,
+                          child: SizedBox(
+                            child: Container(
+                              color: Colors.white,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: SizedBox(
+                                      width: widget.widthc * .35,
+                                      height: widget.heightc * .075,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: widget.ancho * .03),
+                                        child: RaisedButton(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Icon(Icons.close,
+                                                  size: 20,
+                                                  color: Color(0xff1ba6d2)),
+                                              SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text(
+                                                'Cancelar',
+                                                style: TextStyle(
+                                                    fontFamily: "Roboto",
+                                                    color: Color(0xff1ba6d2),
+                                                    fontSize:
+                                                        widget.heightc * 0.025),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          padding: EdgeInsets.only(
+                                              left: 30,
+                                              right: 30,
+                                              top: 12,
+                                              bottom: 12),
+                                          color: Colors.white,
+                                          elevation: 0,
+                                          onPressed: () {
+                                            countryService.filterCountryB
+                                                .add("");
+
+                                            Navigator.pop(context);
+
+                                            // print(username);
+
+                                            //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: widget.ancho * 0.02),
+                                  Expanded(
+                                    flex: 1,
+                                    child: SizedBox(
+                                      width: widget.widthc * .35,
+                                      height: widget.heightc * .075,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            right: widget.ancho * .03),
+                                        child: RaisedButton(
+                                            elevation: 0,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text(
+                                                  'Siguiente',
+                                                  style: TextStyle(
+                                                      fontFamily: "Roboto",
+                                                      color: Colors.white,
+                                                      fontSize: widget.heightc *
+                                                          0.025),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                SizedBox(
+                                                  width: 8,
+                                                ),
+                                                Icon(
+                                                  Icons.chevron_right,
+                                                  size: 20,
+                                                  color: Colors.white,
+                                                ),
+                                              ],
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(30)),
+                                            padding: EdgeInsets.only(
+                                                left: 30,
+                                                right: 30,
+                                                top: 12,
+                                                bottom: 12),
+                                            color: Color(0xff1ba6d2),
+                                            onPressed: () {}),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 5,
+                          child: Container(
+                              color: Color(0xffecedee),
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(top: 9, left: 7, right: 7),
+                                child: Container(
+                                  child: StreamBuilder<List<Cities>>(
+                                      stream: countryService.CityList,
+                                      builder: (Context, snapshot) {
+                                        if (snapshot.hasData &&
+                                            snapshot.data.length == 0) {}
+                                        return snapshot.hasData &&
+                                                snapshot.data.length > 0
+                                            ? GridView.builder(
+                                                gridDelegate:
+                                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount:
+                                                      widget._crossAxisCount,
+                                                  childAspectRatio:
+                                                      widget.aspectratio,
+                                                ),
+                                                scrollDirection: Axis.vertical,
+                                                itemCount: snapshot.data.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  return Container(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Container(
+                                                            //color: Colors.lightGreen,
+                                                            height:
+                                                                widget.heightc *
+                                                                    0.2,
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    0),
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                .43,
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () async {
+                                                                setState(() {});
+                                                              },
+                                                              child: Card(
+                                                                child: Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        left: 0,
+                                                                        right:
+                                                                            0,
+                                                                        top: 5,
+                                                                        bottom:
+                                                                            5),
+                                                                    child:
+                                                                        Container(
+                                                                      //color: Colors.indigo,
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              4),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.center,
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Flexible(
+                                                                            child:
+                                                                                Text(
+                                                                              snapshot.data[index].name,
+                                                                              textAlign: TextAlign.center,
+                                                                              style: TextStyle(color: Color(0xffb7b7b7), fontWeight: FontWeight.w400, fontFamily: "TrebuchetMS", fontSize: snapshot.data[index].name.length > 9 ? widget.heightc * 0.021 : widget.heightc * 0.025),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    )),
+                                                                shape: RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                5),
+                                                                    side: BorderSide
+                                                                        .none),
+                                                              ),
+                                                            ))
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : snapshot.hasData &&
+                                                    snapshot.data.length == 0
+                                                ? Center(
+                                                    child: Text(widget.msj),
+                                                  )
+                                                : Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                      }),
+                                ),
+                              )),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox(
+                            child: Container(
+                              color: Colors.white,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: SizedBox(
+                                      width: widget.widthc * .35,
+                                      height: widget.heightc * .075,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            left: widget.ancho * .03),
+                                        child: RaisedButton(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Icon(Icons.close,
+                                                  size: 20,
+                                                  color: Color(0xff1ba6d2)),
+                                              SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text(
+                                                'Cancelar',
+                                                style: TextStyle(
+                                                    fontFamily: "Roboto",
+                                                    color: Color(0xff1ba6d2),
+                                                    fontSize:
+                                                        widget.heightc * 0.025),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                          ),
+                                          padding: EdgeInsets.only(
+                                              left: 30,
+                                              right: 30,
+                                              top: 12,
+                                              bottom: 12),
+                                          color: Colors.white,
+                                          elevation: 0,
+                                          onPressed: () {
+                                            countryService.filterCountryB
+                                                .add("");
+                                            //countryService.filtercityB.add("");
+                                            Navigator.pop(context);
+
+                                            // print(username);
+
+                                            //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: widget.ancho * 0.02),
+                                  Expanded(
+                                    flex: 1,
+                                    child: SizedBox(
+                                      width: widget.widthc * .35,
+                                      height: widget.heightc * .075,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            right: widget.ancho * .03),
+                                        child: RaisedButton(
+                                          elevation: 0,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text(
+                                                'Siguiente',
+                                                style: TextStyle(
+                                                    fontFamily: "Roboto",
+                                                    color: Colors.white,
+                                                    fontSize:
+                                                        widget.heightc * 0.025),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              SizedBox(
+                                                width: 8,
+                                              ),
+                                              Icon(
+                                                Icons.chevron_right,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
+                                            ],
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          padding: EdgeInsets.only(
+                                              left: 30,
+                                              right: 30,
+                                              top: 12,
+                                              bottom: 12),
+                                          color: Color(0xff1ba6d2),
+                                          onPressed: () {
+                                            //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),

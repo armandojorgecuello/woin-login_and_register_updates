@@ -121,7 +121,6 @@ class _WebSocialswoinerState extends State<WebSocialswoiner> {
                       vertical: ResponsiveFlutter.of(context).hp(0)),
                   children: <Widget>[
                     Form(
-                      key: _formKey,
                       child: Card(
                         child: Padding(
                           padding: EdgeInsets.only(

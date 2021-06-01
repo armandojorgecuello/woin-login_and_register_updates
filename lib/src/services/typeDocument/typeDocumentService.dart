@@ -7,8 +7,8 @@ import 'package:woin/src/models/woin_location_model.dart';
 import 'package:woin/src/services/Repository/baseApi.dart';
 
 class typeDocumentService extends BaseApiWoin {
-  Future<List<typeDocument>> httpDocuments(
-      WoinLocation location, Device device) async {
+
+  Future<List<typeDocument>> httpDocuments(WoinLocation location, Device device) async {
     var responseJson;
     var header = {
       HttpHeaders.contentTypeHeader: 'application/json',
