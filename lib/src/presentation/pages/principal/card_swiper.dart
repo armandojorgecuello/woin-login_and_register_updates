@@ -156,7 +156,7 @@ Padding cardsWoin(context, int id, UserDetailResponse userData, Woiner woiner) {
                 children: [
                   Text(
                     id == 2 ? "Cliwoin" : "Emwoin", 
-                    style: TextStyle(color: id == 2 ? Color(0xff1ba6d2) : Color.fromRGBO(194, 159, 0, 1), fontSize:15.0.sp )
+                    style: TextStyle(color: id == 2 ? Color(0xff1ba6d2) : Color(0xffFFD400), fontSize:15.0.sp )
                   ),
                   SizedBox(height: 3.5.h ),
                   Text(
@@ -165,7 +165,7 @@ Padding cardsWoin(context, int id, UserDetailResponse userData, Woiner woiner) {
                   ),
                   Text(
                     "000.00", 
-                    style: TextStyle(color: id == 2 ? Color(0xff1ba6d2) : Color.fromRGBO(194, 159, 0, 1), fontSize:15.0.sp )
+                    style: TextStyle(color: id == 2 ? Color(0xff1ba6d2) : Color(0xffFFD400), fontSize:15.0.sp )
                   ),
                 ],
               )
@@ -410,10 +410,7 @@ Container _buttons(){
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
             padding: EdgeInsets.all(0),
             onPressed: userDetail.typeDefault != 0 ? () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) =>typeTransactions())
-              );
+              
             } : (){},
             color: Colors.white,
             child: Column(
@@ -431,7 +428,7 @@ Container _buttons(){
                       EdgeInsets.only(right: 11, bottom: 0),
                   child: Icon(
                     Icons.person_add,
-                    color:userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) : Color(0xffD2A409)  ,
+                    color:userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) :Color(0xffFFD400)  ,
                     size: MediaQuery.of(context).size.height *
                         .115 *
                         .35,
@@ -441,7 +438,7 @@ Container _buttons(){
                 Text(
                   "Invitar",
                   style: TextStyle(
-                      color: Color.fromRGBO(188, 188, 188, 1),
+                      color: userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) :Color(0xffFFD400),
                       fontSize:
                           MediaQuery.of(context).size.height *
                               .115 *
@@ -484,7 +481,7 @@ Container _buttons(){
                 ),
                 Icon(
                   LineIcons.qrcode,
-                  color:userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) : Color(0xffD2A409)  ,
+                  color:userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) :Color(0xffFFD400)  ,
                   size: MediaQuery.of(context).size.height *
                       .115 *
                       .35,
@@ -492,7 +489,7 @@ Container _buttons(){
                 Text(
                   "Mi QR",
                   style: TextStyle(
-                      color: Color.fromRGBO(188, 188, 188, 1),
+                      color: userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) :Color(0xffFFD400),
                       fontSize:
                           MediaQuery.of(context).size.height *
                               .115 *
@@ -531,7 +528,7 @@ Container _buttons(){
                   ),
                   Icon(
                     Icons.flash_on,
-                    color:userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) : Color(0xffD2A409)  ,
+                    color:userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) :Color(0xffFFD400)  ,
                     size: MediaQuery.of(context).size.height *
                         .115 *
                         .35,
@@ -539,8 +536,7 @@ Container _buttons(){
                   Text(
                     "Recargar",
                     style: TextStyle(
-                        color:
-                            Color.fromRGBO(188, 188, 188, 1),
+                        color:userDetail.typeDefault == 0 ? Colors.grey : userDetail.typeDefault == 2 ? Color(0xff1ba6d2) :Color(0xffFFD400),
                         fontSize: MediaQuery.of(context)
                                 .size
                                 .height *

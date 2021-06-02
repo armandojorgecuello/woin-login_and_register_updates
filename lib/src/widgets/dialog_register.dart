@@ -144,7 +144,8 @@ class _ConfirmVerificationCodeReceiveState extends State<ConfirmVerificationCode
                   if(okButtonTex == "Reenviar"){
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-                  }else if(okButtonTex == "Registrarse"   ){
+                  }else if(okButtonTex == "Iniciar Sesión"   ){
+                    Navigator.of(context).pop();
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
@@ -182,7 +183,7 @@ class _ConfirmVerificationCodeReceiveState extends State<ConfirmVerificationCode
                  if(okButtonTex == "Reenviar"){
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-                  }else if(okButtonTex == "Registrarse"   ){
+                  }else if(okButtonTex == "Iniciar Sesión"   ){
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();

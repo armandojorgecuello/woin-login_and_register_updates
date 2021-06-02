@@ -113,7 +113,6 @@ class _EmpresaswoinerswoinerState extends State<Empresaswoiner> {
                       vertical: ResponsiveFlutter.of(context).hp(0)),
                   children: <Widget>[
                     Form(
-                      key: _formKey,
                       child: Card(
                         child: Padding(
                           padding: EdgeInsets.only(

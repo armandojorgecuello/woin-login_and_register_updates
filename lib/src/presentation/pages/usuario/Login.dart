@@ -305,55 +305,59 @@ class _loginPageState extends State<loginPage> {
         shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(30)),
         color: Color(0xff1ba6d2),
         onPressed: () async {
-          String username = usernameController.text.toString();
-          String password = passwordController.text.toString();
-          if (username != "" && password != "") {
-            showDialogV2(
-              context: context,
-              builder: (BuildContext context) =>CustomDialogLoading()
-            );
-            geoLocation gl = new geoLocation();
-            await gl.obtenerGeolocalizacion();
-            UserLoguin userLogin = new UserLoguin(
-              device: gl.getDevices,
-              woinLocation: gl.getLocation,
-              password: password,
-              username: username,
-              code: 0
-            );
-            //ulg = userLogin;
-            RespUserLoguin resp = await userService.loguin(userLogin, context);
-            if(resp.status == true){
-              List<UserDetailResponse> _userDetail = List();
-              resp.entities.forEach((userDetail) async{ 
-                final temporalUserDetail = UserDetailResponse.fromJson(userDetail);
-                Provider.of<LoginProvider>(context, listen:false).userDetail = temporalUserDetail;
-                print(userDetail);
-                _userDetail.add(temporalUserDetail);
-              });
-              Navigator.of(context).pop();
-              _userDetail.forEach((UserDetailResponse element) { 
-                if(element.state == 2){
-                  showAlerts(
-                    context,
-                    resp.message, 
-                    false,
-                    null,
-                    navigateToActivateAccount(password, username, gl),
-                    "Ingresar Código", 
-                    "", 
-                    null
-                  );
-                }else{
-                  Provider.of<LoginProvider>(context, listen:false).userLogin = userLogin;
-                  Provider.of<LoginProvider>(context, listen:false).isLogin = true;
-                  Navigator.of(context).push(CupertinoPageRoute(builder: (context)=> FirstPage()));
-                }
-              });
-            }else{
-              Navigator.of(context).pop();
-              showAlerts(context,resp.message, false,closeModal, null,"Aceptar", "", null);
+          if(_formKey.currentState.validate()){
+            String username = usernameController.text.toString();
+            String password = passwordController.text.toString();
+            if (username != "" && password != "") {
+              showDialogV2(
+                context: context,
+                builder: (BuildContext context) =>CustomDialogLoading()
+              );
+              geoLocation gl = new geoLocation();
+              await gl.obtenerGeolocalizacion();
+              UserLoguin userLogin = new UserLoguin(
+                device: gl.getDevices,
+                woinLocation: gl.getLocation,
+                password: password,
+                username: username,
+                code: 0
+              );
+              //ulg = userLogin;
+              RespUserLoguin resp = await userService.loguin(userLogin, context);
+              if(resp.status == true){
+                List<UserDetailResponse> _userDetail = List();
+                resp.entities.forEach((userDetail) async{ 
+                  final temporalUserDetail = UserDetailResponse.fromJson(userDetail);
+                  Provider.of<LoginProvider>(context, listen:false).userDetail = temporalUserDetail;
+                  print(userDetail);
+                  _userDetail.add(temporalUserDetail);
+                });
+                Navigator.of(context).pop();
+                _userDetail.forEach((UserDetailResponse element) { 
+                  if(element.state == 2){
+                    showAlerts(
+                      context,
+                      resp.message, 
+                      false,
+                      null,
+                      navigateToActivateAccount(password, username, gl),
+                      "Ingresar Código", 
+                      "", 
+                      null
+                    );
+                  }else{
+                    Provider.of<LoginProvider>(context, listen:false).userLogin = userLogin;
+                    Provider.of<LoginProvider>(context, listen:false).isLogin = true;
+                    Navigator.of(context).push(CupertinoPageRoute(builder: (context)=> FirstPage()));
+                  }
+                });
+              }else{
+                Navigator.of(context).pop();
+                showAlerts(context,resp.message, false,closeModal, null,"Aceptar", "", null);
+              }
             }
+          }else{
+            showAlerts(context,"No debe haber campos vacíos", false,closeModal, null,"Aceptar", "", null);
           }
         },
       ),
@@ -427,22 +431,7 @@ class _loginPageState extends State<loginPage> {
             typeDefaultName: "" ,
             image: "",
           );
-          Provider.of<LoginProvider>(context, listen:false).userDetail = visitant;
-          //userdetalle sesion = new userdetalle();
-          //sesion.setSesion = new UserDetailResponse();
-          //sesion.setPersonWoiner = null;
-          //sesion.setWoinerType = [];
-          //sesion.setCuentaActiva = 0;
-          //sesion.setImageCli = "";
-          //sesion.setImageEm = "";
-          //sesion.setPassword = "";
-          //sesion.setSesion1 = null;
-          //sesion.setSesion2 = null;
-          //sesion.setTokenCli = "";
-          //sesion.setTokenEm = "";
-          //sesion.setTokenUser = "";
-          //sesion.visitante = 1;
-          //tipoUser.userSesionGSink.add(sesion);
+          Provider.of<LoginProvider>(context, listen:false).userDetail = visitant; 
           Navigator.push(context,MaterialPageRoute(builder: (context) => HomePage()));
         }
       ),
@@ -536,8 +525,8 @@ class _loginPageState extends State<loginPage> {
       child: TextFormField(
         controller: usernameController,
         validator: (val) {
-        if (val.length < 8) {
-          return "Cedula, Nit ó Rut mínimo con 8 caracteres";
+        if (val.length < 4) {
+          return "Cedula, Nit ó Rut mínimo con 4 caracteres";
         }
         if (val.length >12) {
           return "Cedula, Nit ó Rut  máximo con 12 caracteres";

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sizer/sizer.dart';
-import 'package:woin/main.dart';
 import 'package:woin/src/helpers/LocationDevice.dart';
 import 'package:woin/src/models/recovery_password_model.dart';
 import 'package:woin/src/presentation/pages/Personalizados_Widgets/Dialogv2.dart';
@@ -27,10 +27,15 @@ class _RecoverPasswordState extends State<RecoverPassword> {
   final GlobalKey<FormFieldState> _keyUserNameController = GlobalKey<FormFieldState>(); 
   bool recoveryPassword = true;
   double heigth;
-
+  bool keyBoardIsVisible = false;
   @override
   void initState() {
     super.initState();
+    KeyboardVisibilityNotification().addNewListener(onChange: (bool visible){
+      setState(() {
+        keyBoardIsVisible = visible;
+      });
+    });
   }
 
   @override
@@ -54,8 +59,8 @@ class _RecoverPasswordState extends State<RecoverPassword> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              _image(),
-              SizedBox(height: 5.0.h,),  
+              keyBoardIsVisible == false ? _image() : Container(),
+              keyBoardIsVisible == false ? SizedBox(height: 5.0.h,) : SizedBox(height: 9.0.h,) ,  
               Padding(
                 padding: EdgeInsets.symmetric(horizontal:3.0.w),
                 child: Text("Escriba su usuario", style: TextStyle(color:Colors.black, fontSize:12.0.sp)),
@@ -66,7 +71,7 @@ class _RecoverPasswordState extends State<RecoverPassword> {
                 errorTextMin: "Ingrese su usuario",
                 errorTextMax:  null,
                 maxLength: 12,
-                minLength: 8,
+                minLength: 4,
                 key: _keyUserNameController,
                 labelText: "Cedula de Ciudadnía, Nit, Rut",
                 controller:  usernameController,

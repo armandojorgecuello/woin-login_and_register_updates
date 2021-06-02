@@ -45,7 +45,7 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
   double heigthProfileType;
   final _formKey = GlobalKey<FormState>();
   String comercialActivity = "Productos";
-
+  String paswword;
   Uint8List bytes = Uint8List(0);
   TextEditingController _inputController  = new TextEditingController();
   TextEditingController _outputController = new TextEditingController();
@@ -386,11 +386,11 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
           children:[
             CircleAvatar(
               radius: 3.0.h,
-              backgroundColor: currentIndex == index ? Color(0xffD2A409) :  Colors.grey[100],
-              child: Icon(icon, color:currentIndex == index ? Colors.white:  Colors.grey  ),
+              backgroundColor: currentIndex == index ? Color(0xffFFD400) :  Colors.grey[100],
+              child: Icon(icon, color:currentIndex == index ? Colors.white : Colors.grey  ),
             ),
             SizedBox(height: 0.5.h,),
-            Text(title, style:TextStyle(fontSize: 8.0.sp,color:currentIndex == index ? Color(0xffD2A409):  Colors.grey ))
+            Text(title, style:TextStyle(fontSize: 8.0.sp,color:currentIndex == index ? Color(0xffFFD400) :  Colors.grey ))
           ]
         )
       ),
@@ -468,23 +468,23 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
         textAlign: TextAlign.left,
         text: TextSpan(
           text: "Empresas que buscan visibilidad para ",
-          style: TextStyle(fontSize: 12.0.sp, color: Color(0xffD2A409),fontFamily: "Roboto-ligth"),
+          style: TextStyle(fontSize: 12.0.sp, color: Color(0xffFFD400),fontFamily: "Roboto-ligth"),
           children: <TextSpan>[
             TextSpan(
               text: "incrementar sus ventas ",
-              style: TextStyle(fontSize: 12.0.sp, color: Color(0xffD2A409),fontFamily: "Roboto-bold", fontWeight: FontWeight.bold) 
+              style: TextStyle(fontSize: 12.0.sp, color: Color(0xffFFD400),fontFamily: "Roboto-bold", fontWeight: FontWeight.bold) 
             ),
             TextSpan(
               text: "y ",
-              style: TextStyle(fontSize: 12.0.sp, color: Color(0xffD2A409),fontFamily: "Roboto-ligth") 
+              style: TextStyle(fontSize: 12.0.sp, color: Color(0xffFFD400),fontFamily: "Roboto-ligth") 
             ),
             TextSpan(
               text: "fidelizar ",
-              style: TextStyle(fontSize: 12.0.sp, color: Color(0xffD2A409),fontFamily: "Roboto-bold", fontWeight: FontWeight.bold) 
+              style: TextStyle(fontSize: 12.0.sp, color: Color(0xffFFD400),fontFamily: "Roboto-bold", fontWeight: FontWeight.bold) 
             ),
             TextSpan(
               text: "clientes.",
-              style: TextStyle(fontSize: 12.0.sp, color: Color(0xffD2A409),fontFamily: "Roboto-ligth") 
+              style: TextStyle(fontSize: 12.0.sp, color: Color(0xffFFD400),fontFamily: "Roboto-ligth") 
             ),
           ]
         )
@@ -819,7 +819,7 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
       maxLines: 1,
       controller: pclaveController,
       style: TextStyle(
-        color: Color(0xfc979797),
+        color: Colors.black,
         fontSize: 11.0.sp
       ),
       keyboardType: TextInputType.text,
@@ -892,8 +892,9 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
       maxLines: 1,
       controller: emailController,
       style: TextStyle( 
-        color: Color(0xfc979797),
-        fontSize:11.0.sp),
+        color:Colors.black,
+        fontSize:11.0.sp
+      ),
       keyboardType: TextInputType.emailAddress,
       autocorrect: true,
       autofocus: false,
@@ -947,8 +948,9 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
       maxLines: 1,
       controller: confirmEmailController,
       style: TextStyle( 
-        color: Color(0xfc979797),
-        fontSize:11.0.sp),
+        color: Colors.black,
+        fontSize:11.0.sp
+      ),
       keyboardType: TextInputType.emailAddress,
       autocorrect: true,
       autofocus: false,
@@ -997,7 +999,8 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
       maxLength: 17,
       maxLines: 1,
       controller: telefonoController,
-      style: TextStyle( color: Color(0xfc979797),
+      style: TextStyle( 
+        color: Colors.black,
         fontSize: 11.0.sp
       ),
       keyboardType: TextInputType.number,
@@ -1051,8 +1054,7 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
         if (val.length < 1) {
           return "Debe ingresar una contraseña";
         }
-        if (val !=
-            passwordController.text) {
+        if (val != passwordController.text) {
           return "Contraseñas no coinciden";
         }
         return null;
@@ -1064,7 +1066,8 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
       maxLength: 15,
       controller:
       confirmpasswordController,
-      style: TextStyle( color: Color(0xfc979797),
+      style: TextStyle( 
+        color: Colors.black,
         fontSize:11.0.sp
       ),
       keyboardType: TextInputType.text,
@@ -1163,14 +1166,16 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
         }
       },
       onChanged: (String value){
+        paswword = value;
         _keypasswordController.currentState.validate();
       },
       key: _keypasswordController,
       maxLength: 15,
       controller: passwordController,
       style: TextStyle(
-        color: Color(0xfc979797),
-        fontSize: 11.0.sp),
+        color: Colors.black,
+        fontSize: 11.0.sp
+      ),
       keyboardType: TextInputType.text,
       autocorrect: true,
       autofocus: false,
@@ -1250,8 +1255,8 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
   TextFormField _textFieldUserName(BuildContext context) {
     return TextFormField(
       validator: (val) {
-        if (val.length < 8) {
-          return "Cedula, Nit ó Rut mínimo con 8 caracteres";
+        if (val.length < 4) {
+          return "Cedula, Nit ó Rut mínimo con 4 caracteres";
         }
         if (val.length >12) {
           return "Cedula, Nit ó Rut  máximo con 12 caracteres";
@@ -1271,7 +1276,7 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
       ],
       controller: usernameController,
       style: TextStyle(
-        color: Color(0xfc979797),
+        color: Colors.black,
         fontSize: 11.0.sp
       ),
       keyboardType: TextInputType.number,
@@ -1320,7 +1325,7 @@ class _mainRegisterUserState extends State<mainRegisterUser> {
       onChanged: (String value){
         _keycodigoController.currentState.validate();
       },
-      style: TextStyle( color: Color(0xfc979797),fontSize: 11.0.sp),
+      style: TextStyle( color: Colors.black,fontSize: 11.0.sp),
         keyboardType: TextInputType.number,
         autocorrect: true,
         autofocus: false,

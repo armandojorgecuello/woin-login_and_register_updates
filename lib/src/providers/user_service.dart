@@ -74,29 +74,7 @@ class UserProvider extends BaseApiWoin {
             okButtonTex: "Ingresar Código",
           )
         ));
-        //Navigator.of(context).pop();
-        //Navigator.of(context).push(CupertinoPageRoute(
-        //  builder: (context) => ConfirmVerificationCodeReceive(
-        //    child: CodeActivacion(
-        //      pageTitle: "Crear Cuenta",
-        //      device: device,
-        //      location: location,
-        //      password: user.password,
-        //      userName: user.username,
-        //    ),
-        //    title: "Registro Exitoso",
-        //    content: "Ingrese a su correo o mensajes de texto e introduzca el codigo enviado para finalizar el registro",
-        //    firstTitle: "Bienvenido Woiner",
-        //    closeButonText: "Cerrar",
-        //    okButtonTex: "Ingresar Código",
-//
-        //  )
-        //));
         var jsonr = responseJson = json.decode(response.body);
-        print(jsonr);
-        //respUserRegister ur = respUserRegister.fromJson(jsonr);
-        //return ur;
-        
       }else{
         var errorResponse = json.decode(response.body);
         Map<dynamic, dynamic> mapResponse = Map.from(errorResponse);
@@ -111,21 +89,17 @@ class UserProvider extends BaseApiWoin {
             title: "Solicitud de Registro Rechazada",
             content: mapResponse["message"],
             firstTitle: "Usuario",
-            okButtonTex: "Registrarse",
+            okButtonTex: "Iniciar Sesión",
           )
         ));
         respUserRegister ur = respUserRegister(status: false,message: "ERROR AL REGISTRAR",usuario: null);
-        //return ur;
       }
     } on SocketException {
       print('No net');
       respUserRegister ur = respUserRegister(status: false,message: "ERROR AL REGISTRAR",usuario: null);
-      //return ur;
     } on Exception catch(e){
       print("EXCEPTION");
       respUserRegister ur = respUserRegister(status: false,message: "ERROR AL REGISTRAR",usuario: null);
-      //return ur;
-
     }
   }
 

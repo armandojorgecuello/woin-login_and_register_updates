@@ -437,14 +437,14 @@ class _MenuState extends State<Menu> {
         children: [
           CircleAvatar(
             backgroundColor: Colors.white,
-            backgroundImage: widget.user.image != null ?  NetworkImage(widget.user.image) : AssetImage("assets/no_user_image.png"),
+            backgroundImage: userData?.image != null ?  NetworkImage(userData.image) : AssetImage("assets/no_user_image.png"),
             radius: 8.0.w,
           ),
           SizedBox(
             height:2.0.h,
           ),
           Text(
-            userData.publicName ?? "",
+            userData != null ? userData?.publicName : "",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -458,7 +458,7 @@ class _MenuState extends State<Menu> {
             height:0.5.h,
           ),
           Text(
-            widget.user.email ?? "",
+            widget.user != null ? widget.user.email : "",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -506,7 +506,7 @@ class _MenuState extends State<Menu> {
               }
 
             },
-            color: Color(0xff1ba6d2),
+            color: widget.user.typeDefault == 2 ? Color(0xff1ba6d2) : Color(0xffFFD400),
             shape: RoundedRectangleBorder(
                 borderRadius:
                 BorderRadius.circular(30)),
@@ -527,6 +527,7 @@ class _MenuState extends State<Menu> {
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     color: Colors.white,
+                    fontSize: 12.0.sp
                   ),
                 )
               ],

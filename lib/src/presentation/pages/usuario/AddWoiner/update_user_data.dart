@@ -78,7 +78,8 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
         child: ListView(
           padding: EdgeInsets.symmetric(
             vertical: ResponsiveFlutter.of(context).hp(1.9),
-            horizontal: ResponsiveFlutter.of(context).wp(2.2)),
+            horizontal: ResponsiveFlutter.of(context).wp(2.2)
+          ),
           shrinkWrap: true,
           children: <Widget>[
             userDetail.typeDefault == 2
@@ -91,94 +92,6 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
     );
   }
 
-  // Padding _buttons(BuildContext context) {
-  //   return Padding(
-  //     padding: EdgeInsets.symmetric(horizontal: 3.0.w),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: <Widget>[
-  //         RaisedButton(
-  //             elevation: 0,
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: <Widget>[
-  //                 Icon(
-  //                   Icons.close,
-  //                   size: 20,
-  //                   color: Color(0xff1ba6d2),
-  //                 ),
-  //                 SizedBox(
-  //                   width: MediaQuery.of(context).size.width * 0.03,
-  //                 ),
-  //                 Text(
-  //                   'Cancelar',
-  //                   style: TextStyle(
-  //                       fontFamily: "Roboto",
-  //                       color: Color(0xff1ba6d2),
-  //                       fontSize: MediaQuery.of(context).size.height * 0.019),
-  //                 ),
-  //               ],
-  //             ),
-  //             shape: RoundedRectangleBorder(
-  //                 borderRadius: BorderRadius.circular(30)),
-  //             padding:
-  //                 EdgeInsets.only(left: 30, right: 30, top: 12, bottom: 12),
-  //             color: Colors.white,
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             }
-  //             //Navigator.push(context, MaterialPageRoute(builder: (context)=>DrawerMenu()));
-  //             ),
-  //         RaisedButton(
-  //             elevation: 0,
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: <Widget>[
-  //                 Text(
-  //                   'Siguiente',
-  //                   style: TextStyle(
-  //                       fontFamily: "Roboto",
-  //                       color: Colors.white,
-  //                       fontSize: MediaQuery.of(context).size.height * 0.019),
-  //                 ),
-  //                 SizedBox(
-  //                   width: MediaQuery.of(context).size.width * 0.03,
-  //                 ),
-  //                 Icon(
-  //                   Icons.chevron_right,
-  //                   size: 20,
-  //                   color: Colors.white,
-  //                 ),
-  //               ],
-  //             ),
-  //             shape: RoundedRectangleBorder(
-  //                 borderRadius: BorderRadius.circular(30)),
-  //             padding:
-  //                 EdgeInsets.only(left: 30, right: 30, top: 12, bottom: 12),
-  //             color: Color(0xff1ba6d2),
-  //             onPressed: () async {
-  //               geoLocation gl = new geoLocation();
-  //               await gl.obtenerGeolocalizacion();
-  //               //cliWoiner cli = new cliWoiner(
-  //               //  device: gl.getDevices,
-  //               //  person: p,
-  //               //  phones: phones,
-  //               //  woinLocation: gl.getLocation,
-  //               //  userId: 0,
-  //               //  woinerType: type,
-  //               //  isDefault: 1,
-  //               //  image: widget.imagenUser,
-  //               //  biography: widget.biography == null
-  //               //    ? ""
-  //               //    : widget.biography
-  //               //);
-  //               //final woinerReg = await userService.registroWoiner(cli);
-  //             }//
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Card _contactAndOthersCard(BuildContext context) {
     return Card(
@@ -203,12 +116,12 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
             color: Colors.grey[300],
           ),
           _biography(context),
-          this.widget.typeWoiner == 2
+          this.widget.typeWoiner == 3
               ? Divider(
                   color: Colors.grey[300],
                 )
               : SizedBox(),
-          this.widget.typeWoiner == 2 ? _social(context) : SizedBox(),
+          this.widget.typeWoiner == 3 ? _social(context) : SizedBox(),
           Divider(
             color: Colors.grey[300],
           )
@@ -240,14 +153,7 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
             dense: true,
             leading: Icon(FontAwesome.share_alt),
             title: Text("Página web y Redes Sociales"),
-            subtitle: widget.social == null
-                ? Text("No existen Datos")
-                : widget.social != null && widget.social.paginaWeb == ""
-                    ? Text("Algunas redes guardadas")
-                    : Text(
-                        widget.social.paginaWeb,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+            subtitle: Text("Modificar datos de redes sociales"),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -266,19 +172,15 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
       child: GestureDetector(
         onTap: () {
           Navigator.push(
-              context,
-              PageRouteBuilder(
-                  transitionDuration: Duration(milliseconds: 1200),
-                  pageBuilder: (_, __, ___) => Biographywoiner(
-                        biografia: widget.biography,
-                        type: widget.typeWoiner,
-                      ))).then((datos) {
-            if (datos != null) {
-              setState(() {
-                widget.biography = datos;
-              });
-            }
-          });
+            context,
+            PageRouteBuilder(
+              transitionDuration: Duration(milliseconds: 1200),
+              pageBuilder: (_, __, ___) => Biographywoiner(
+                biografia: widget.biography,
+                type: widget.typeWoiner,
+              )
+            )
+          );
         },
         child: Material(
           color: Colors.white,
@@ -286,9 +188,7 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
             dense: true,
             leading: Icon(FontAwesome.info_circle),
             title: Text("Biografía visible al público"),
-            subtitle: (widget.biography == null || widget.biography == "")
-                ? Text("No existe biografía que mostrar")
-                : Text("Biografia Configurada"),
+            subtitle: Text("Modificar biografía"),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -328,11 +228,7 @@ class _MainDatosWoinerState extends State<MainDatosWoiner> {
             dense: true,
             leading: Icon(FontAwesome.phone),
             title: Text("Contáctame"),
-            subtitle: widget.contacto == null
-                ? Text("No hay datos de contacto")
-                : widget.contacto != null && widget.contacto.telContacto == ""
-                    ? Text("Algunos datos configurados")
-                    : Text(widget.contacto.telContacto),
+            subtitle: Text("Modificar datos de contacto"),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
